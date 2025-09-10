@@ -3,23 +3,23 @@ import { Briefcase, Code, Megaphone, PenTool, BarChart3, Users } from "lucide-re
 
 const categories = [
   { name: "Design", icon: PenTool },
-  { name: "Development", icon: Code },
+  { name: "Développement", icon: Code },
   { name: "Marketing", icon: Megaphone },
-  { name: "Management", icon: Briefcase },
+  { name: "Gestion", icon: Briefcase },
   { name: "Finance", icon: BarChart3 },
-  { name: "Human Resource", icon: Users },
+  { name: "Ressources humaines", icon: Users },
 ];
 
 export default function JobCategories() {
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6 text-center">
-        {/* Title */}
+        {/* Titre */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Popular Job Categories
+          Catégories d&apos;emplois populaires
         </h2>
         <p className="text-gray-600 mb-12">
-          Browse jobs by category and find the perfect role for you.
+          Parcourez les offres par catégorie et trouvez le poste idéal pour vous.
         </p>
 
         {/* Categories Grid */}

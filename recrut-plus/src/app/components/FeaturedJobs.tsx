@@ -4,28 +4,28 @@ import { Button } from "@/components/ui/button";
 
 const jobs = [
   {
-    title: "UI/UX Designer",
-    company: "Creative Agency",
+    title: "Designer UI/UX",
+    company: "Agence Créative",
     location: "Paris, France",
-    type: "Full-Time",
+    type: "Temps plein",
   },
   {
-    title: "Frontend Developer",
+    title: "Développeur Frontend",
     company: "TechCorp",
-    location: "Remote",
-    type: "Contract",
+    location: "À distance",
+    type: "Contrat",
   },
   {
-    title: "Marketing Specialist",
-    company: "Global Media",
-    location: "Berlin, Germany",
-    type: "Part-Time",
+    title: "Spécialiste Marketing",
+    company: "Médias Globaux",
+    location: "Berlin, Allemagne",
+    type: "Temps partiel",
   },
   {
-    title: "Project Manager",
-    company: "Consulting Group",
-    location: "London, UK",
-    type: "Full-Time",
+    title: "Chef de projet",
+    company: "Groupe Conseil",
+    location: "Londres, Royaume-Uni",
+    type: "Temps plein",
   },
 ];
 
@@ -33,12 +33,12 @@ export default function FeaturedJobs() {
   return (
     <section className="py-20">
       <div className="container mx-auto px-6 text-center">
-        {/* Title */}
+        {/* Titre */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Featured Jobs
+          Offres d’emploi en vedette
         </h2>
         <p className="text-gray-600 mb-12">
-          Explore top job opportunities curated for you.
+          Découvrez les meilleures opportunités sélectionnées pour vous.
         </p>
 
         {/* Jobs Grid */}
@@ -64,7 +64,7 @@ export default function FeaturedJobs() {
               </div>
 
               <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white">
-                Apply Now
+                Postuler maintenant
               </Button>
             </div>
           ))}
