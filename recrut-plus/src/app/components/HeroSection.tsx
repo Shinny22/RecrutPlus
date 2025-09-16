@@ -8,10 +8,10 @@ import Image from "next/image";
 import { useKeenSlider } from "keen-slider/react";
 
 const images = [
-  { src: "/images/femme_cadre.png", alt: "Career woman" },
-  { src: "/images/Teamwork.jpg", alt: "Teamwork" },   // <— attention à la casse
-  { src: "/images/office.jpg", alt: "Office" },
-  { src: "/images/success.jpg", alt: "Success" },
+  { src: "/images/femme_cadre.png", alt: "Femme cadre" },
+  { src: "/images/Teamwork.jpg", alt: "Travail d'équipe" },   // <— attention à la casse
+  { src: "/images/office.jpg", alt: "Bureau" },
+  { src: "/images/success.jpg", alt: "Succès" },
 ];
 
 // Plugin autoplay recommandé (propre et fiable)
@@ -59,32 +59,31 @@ export default function HeroSection() {
   return (
     <section className="bg-green-50 py-16">
       <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        {/* LEFT CONTENT */}
+        {/* CONTENU GAUCHE */}
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            We Help You Find <br />
-            <span className="text-orange-600">Your Dream Job</span>
+            CFI-Recrute <br />
+            <span className="text-orange-600">Plateforme de recrutement du CFI-CIRAS</span>
           </h1>
           <p className="text-gray-600">
-            Browse thousands of job opportunities and connect with top companies.
-            Start your journey to a better career today.
+             Plateforme de recrutement du centre de formation en informatique du Centre d'information et de recherche de l'armée et de la sécurité
           </p>
 
-          {/* SEARCH BAR */}
+          {/* BARRE DE RECHERCHE */}
           <div className="flex items-center bg-white shadow-lg rounded-xl p-2 w-full max-w-lg ring-1 ring-black/5">
             <input
               type="text"
-              placeholder="Search job title or keyword"
+              placeholder="Rechercher un titre de poste ou un mot-clé"
               className="flex-grow px-4 py-2 outline-none rounded-l-xl"
             />
-            <button className="bg-green-600 text-white px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-orange-700">
+            <button className="bg-green-800 text-white px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-orange-700">
               <Search size={18} />
-              Search
+              Rechercher
             </button>
           </div>
         </div>
 
-        {/* RIGHT IMAGE CAROUSEL */}
+        {/* CARROUSEL D'IMAGES DROIT */}
         <div className="flex justify-center">
           <div
             ref={sliderRef}
