@@ -122,3 +122,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* globals.css ou styles.css */
+.input {
+  @apply border rounded p-2 w-full;
+}
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700;
+}
+.btn-secondary {
+  @apply bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400;
+}
