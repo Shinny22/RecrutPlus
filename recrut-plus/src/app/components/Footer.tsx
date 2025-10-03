@@ -22,7 +22,7 @@ export default function Footer() {
         </div>
         <div className="text-center text-gray-500 mt-10">
           © 2025 CFI-Recrute - Tous droits réservés <br></br>
-          <span className="text-sm">By CapShine Technology</span>
+          <span className="text-sm">By ShineTech </span>
         </div>
       </footer>
     );

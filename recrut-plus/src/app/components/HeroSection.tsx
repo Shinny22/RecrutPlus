@@ -127,7 +127,7 @@ const slides = [
     src: "/images/femme_cadre.png",
     alt: "Femme cadre",
     title: "Construisez votre avenir avec le CFI-CIRAS",
-    subtitle: "Des opportunités uniques pour votre carrière",
+    subtitle: "Rejoins notre équipe dynamiques et professionelle. Des opportunités uniques pour votre carrière",
   },
   {
     src: "/images/Teamwork.jpg",
@@ -193,9 +193,9 @@ export default function HeroSection() {
   return (
     <section className="relative bg-green-50 pb-10">
       {/* Slider */}
-      <div ref={sliderRef} className="keen-slider relative h-[80vh]  overflow-hidden">
+      <div ref={sliderRef} className="keen-slider relative h-[95vh]  overflow-hidden" >
         {slides.map((slide, i) => (
-          <div key={i} className="keen-slider__slide relative">
+          <div key={i} className="keen-slider__slide relative ">
             {/* Image background */}
             <Image
               src={slide.src}

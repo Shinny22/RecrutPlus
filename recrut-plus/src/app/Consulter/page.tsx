@@ -19,12 +19,12 @@ interface Demande {
 export default function MesDemandesPage() {
   const [demandes, setDemandes] = useState<Demande[]>([]);
   const [loading, setLoading] = useState(true);
-  const nom = "OYERE"; // remplacer par email du candidat (ou via login)
+  const email = "shinnyoyere@gmail.com"; // remplacer par email du candidat (ou via login)
 
   useEffect(() => {
     async function fetchDemandes() {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/mes-demandes/${nom}/`);
+        const res = await fetch(`http://127.0.0.1:8000/mes-demandes/${email}/`);
         if (!res.ok) throw new Error("Erreur lors du fetch des demandes");
         const data = await res.json();
         setDemandes(data);
