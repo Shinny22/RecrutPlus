@@ -28,7 +28,7 @@ export default function HowItWorks() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Postuler à une offre</h3>
-                <p className="text-gray-600">Postulez en ligne facilement avec votre CV.</p>
+                <p className="text-gray-600">Postulez en ligne facilement avec votre CV et votre diplome.</p>
               </div>
             </li>
             <li className="flex items-center gap-4">
@@ -37,7 +37,7 @@ export default function HowItWorks() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Être recruté</h3>
-                <p className="text-gray-600">Démarrez votre carrière avec les meilleures entreprises.</p>
+                <p className="text-gray-600">Démarrez votre carrière avec le CFI-CIRAS.</p>
               </div>
             </li>
           </ul>
@@ -52,11 +52,11 @@ export default function HowItWorks() {
               placeholder="Intitulé du poste ou mot-clé"
               className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
             />
-            <input
+            {/* <input
               type="text"
               placeholder="Localisation"
               className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
-            />
+            /> */}
             <button className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700">
               Rechercher un emploi
             </button>

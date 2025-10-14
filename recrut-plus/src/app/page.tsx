@@ -12,6 +12,7 @@ import JobCategories from "./components/JobCategories";
 import Navbar from "./components/NavBar";
 import Testimonials from "./components/Testimonials";
 import WhyChooseUs from "./components/WhyChooseUs";
+import ContactForm from "./components/ContactForm";
 
 
 
@@ -25,9 +26,10 @@ export default function Home() {
       <FeaturedJobs />
       <AboutSection />
       <WhyChooseUs />
-      <Companies />
       <Testimonials />
       <CallToAction />
+      <ContactForm/>
+      <Companies />
       <Footer />
 
     </main>

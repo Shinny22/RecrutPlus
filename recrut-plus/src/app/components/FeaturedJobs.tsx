@@ -4,28 +4,40 @@ import { Button } from "@/components/ui/button";
 
 const jobs = [
   {
-    title: "Designer UI/UX",
-    company: "Agence Créative",
-    location: "Paris, France",
+    title: "Développeur Fullstack",
+    company: "CFI-CIRAS",
+    location: "Brazzaville, Congo",
     type: "Temps plein",
   },
   {
-    title: "Développeur Frontend",
-    company: "TechCorp",
+    title: "Administrateur Système et Réseaux",
+    company: "CFI-CIRAS",
+    location: "Pointe-Noire, Congo",
+    type: "Temps plein",
+  },
+  {
+    title: "Chargé de Communication Digitale",
+    company: "CFI-CIRAS",
     location: "À distance",
     type: "Contrat",
   },
   {
-    title: "Spécialiste Marketing",
-    company: "Médias Globaux",
-    location: "Berlin, Allemagne",
+    title: "Analyste Financier",
+    company: "CFI-CIRAS",
+    location: "Brazzaville, Congo",
+    type: "Temps plein",
+  },
+  {
+    title: "Assistant Administratif",
+    company: "CFI-CIRAS",
+    location: "Pointe-Noire, Congo",
     type: "Temps partiel",
   },
   {
-    title: "Chef de projet",
-    company: "Groupe Conseil",
-    location: "Londres, Royaume-Uni",
-    type: "Temps plein",
+    title: "Formateur en Cybersécurité",
+    company: "CFI-CIRAS",
+    location: "Brazzaville, Congo",
+    type: "Contrat",
   },
 ];
 
@@ -38,10 +50,10 @@ export default function FeaturedJobs() {
           Offres d’emploi en vedette
         </h2>
         <p className="text-gray-600 mb-12">
-          Découvrez les meilleures opportunités sélectionnées pour vous.
+          Découvrez les meilleures opportunités sélectionnées pour vous au CFI-CIRAS.
         </p>
 
-        {/* Jobs Grid */}
+        {/* Grille des offres d'emploi */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {jobs.map((job, index) => (
             <div
@@ -63,7 +75,7 @@ export default function FeaturedJobs() {
                 {job.type}
               </div>
 
-              <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white">
+              <Button className="w-full bg-green-600 hover:bg-orange-700 text-white">
                 Postuler maintenant
               </Button>
             </div>

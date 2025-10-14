@@ -1,135 +1,181 @@
 
 // "use client";
 
-// import React from "react";
+// import React, { useState, useEffect } from "react";
 // import { useKeenSlider } from "keen-slider/react";
 // import "keen-slider/keen-slider.min.css";
-// import { Award, Users, Briefcase, GraduationCap } from "lucide-react";
+// import { Award, Users, Briefcase, GraduationCap, Lightbulb, Handshake, TrendingUp, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
+// import { useInView } from "react-intersection-observer";
+// import { motion, animate } from "framer-motion";
+// import Image from "next/image"; // Import Image for optimized images
 
 // const teamMembers = [
-//   { name: "Alice Dupont", role: "CEO", photo: "/team/alice.jpg" },
-//   { name: "Bob Martin", role: "CTO", photo: "/team/bob.jpg" },
-//   { name: "Clara N’Goma", role: "HR Manager", photo: "/team/clara.jpg" },
-//   { name: "David Kamanzi", role: "Developer", photo: "/team/david.jpg" },
-//   { name: "Emma Nsimba", role: "Designer", photo: "/team/emma.jpg" },
+//   { name: "Alain EKONDZI", role: "Docteur en informatique, Directeur du CFI-CIRAS", photo: "/images/agent1.jpg" },
+//   { name: "ILOKI-NGATSONGO Alphonse", role: "Ingénieur en informatique", photo: "/images/agent2.jpg" },
+//   { name: "OBAMI YALLA Christ", role: "Docteur en droit", photo: "/images/agent3.jpg" },
+//   { name: "David Kamanzi", role: "Chef de Projet du CFI-CIRAS", photo: "/images/agent4.jpg" },
+//   { name: "Emma Nsimba", role: "Responsable Pédagogique du CFI-CIRAS", photo: "/images/agent5.jpg" },
 // ];
 
 // const trainings = [
-//   { title: "Leadership et management", description: "Formation pour développer vos compétences en management." },
-//   { title: "Développement Web", description: "Apprenez les dernières technologies front-end et back-end." },
-//   { title: "Data Science & IA", description: "Formation pour maîtriser Python, ML et visualisation de données." },
-//   { title: "Marketing Digital", description: "Apprenez à optimiser vos campagnes et vos réseaux sociaux." },
-//   { title: "Communication", description: "Développez vos compétences en communication professionnelle." },
+//   { title: "Génie Logiciel", description: "Acquérez les compétences clés pour réussir votre insertion professionnelle et évoluer.", icon: <Briefcase className="text-orange-600" size={28} /> },
+//   { title: "Système et Réseaux", description: "Maîtrisez les outils et technologies numériques essentiels pour le marché du travail actuel.", icon: <BookOpen className="text-orange-600" size={28} /> },
+//   { title: "Ingénierie Logicielle & Cybersécurité", description: "Formez-vous aux méthodes de développement logiciel et aux meilleures pratiques de cybersécurité.", icon: <Lightbulb className="text-orange-600" size={28} /> },
+//   { title: "Gestion de Projets Innovants", description: "Apprenez à piloter des projets complexes, de l'idéation à la réalisation, avec agilité.", icon: <TrendingUp className="text-orange-600" size={28} /> },
+//   { title: "Administration Publique", description: "Participez à des projets de recherche concrets et innovants pour résoudre des défis réels.", icon: <GraduationCap className="text-orange-600" size={28} /> },
+//   { title: "Réseaux et télécomunications", description: "Participez à des projets de recherche concrets et innovants pour résoudre des défis réels.", icon: <GraduationCap className="text-orange-600" size={28} /> },
 // ];
 
 // const values = [
-//   { title: "Innovation", description: "Nous encourageons la créativité et l’adoption de nouvelles technologies." },
-//   { title: "Excellence", description: "Nous visons la qualité dans tous nos projets et recrutements." },
-//   { title: "Transparence", description: "Une communication claire et honnête avec nos collaborateurs." },
-//   { title: "Croissance", description: "Nous investissons dans le développement continu de nos talents." },
+//   { title: "Engagement", description: "Nous nous engageons pour la réussite de chaque talent et la qualité de nos services.", icon: <Handshake className="text-green-600" size={28} /> },
+//   { title: "Innovation", description: "Nous encourageons la créativité et l’adoption de nouvelles approches pour un impact maximal.", icon: <Lightbulb className="text-green-600" size={28} /> },
+//   { title: "Intégrité", description: "Nous agissons avec éthique, transparence et respect dans toutes nos interactions.", icon: <Award className="text-green-600" size={28} /> },
+//   { title: "Développement Continu", description: "Nous investissons dans l'apprentissage et l'amélioration constante de nos programmes et de nos équipes.", icon: <TrendingUp className="text-green-600" size={28} /> },
 // ];
 
 // const stats = [
-//   { icon: <Users className="w-8 h-8 text-indigo-600" />, value: "200+", label: "Collaborateurs" },
-//   { icon: <Briefcase className="w-8 h-8 text-indigo-600" />, value: "120+", label: "Projets Réalisés" },
-//   { icon: <GraduationCap className="w-8 h-8 text-indigo-600" />, value: "50+", label: "Formations Données" },
-//   { icon: <Award className="w-8 h-8 text-indigo-600" />, value: "10+", label: "Prix & Distinctions" },
+//   { icon: <Users className="w-8 h-8 text-orange-600" />, value: 250, label: "Candidats Recrutés" },
+//   { icon: <GraduationCap className="w-8 h-8 text-orange-600" />, value: 150, label: "Formations Dispensées" },
+//   { icon: <Handshake className="w-8 h-8 text-orange-600" />, value: 75, label: "Partenaires Entreprises" },
+//   { icon: <Award className="w-8 h-8 text-orange-600" />, value: 90, label: "Taux d'Insertion (%)" },
 // ];
+
+// function AnimatedNumber({ target }: { target: number }) {
+//   const [value, setValue] = useState(0);
+
+//   useEffect(() => {
+//     const controls = animate(0, target, {
+//       duration: 2,
+//       onUpdate: (v) => setValue(Math.floor(v)),
+//     });
+
+//     return () => controls.stop();
+//   }, [target]);
+
+//   return <span>{value}{target === 90 ? "%" : "+"}</span>;
+// }
 
 // export default function AboutSection() {
 //   const [teamSliderRef] = useKeenSlider<HTMLDivElement>({
-//     slidesPerView: 1,
-//     spacing: 20,
 //     loop: true,
+//     slides: {
+//       perView: 1,
+//       spacing: 20,
+//     },
 //     breakpoints: {
-//       "(min-width: 640px)": { slidesPerView: 2 },
-//       "(min-width: 1024px)": { slidesPerView: 3 },
+//       "(min-width: 640px)": {
+//         slides: { perView: 2, spacing: 20 },
+//       },
+//       "(min-width: 1024px)": {
+//         slides: { perView: 3, spacing: 20 },
+//       },
 //     },
 //   });
 
 //   const [trainingSliderRef] = useKeenSlider<HTMLDivElement>({
-//     slidesPerView: 1,
-//     spacing: 20,
 //     loop: true,
+//     slides: {
+//       perView: 1,
+//       spacing: 20,
+//     },
 //     breakpoints: {
-//       "(min-width: 640px)": { slidesPerView: 2 },
-//       "(min-width: 1024px)": { slidesPerView: 3 },
+//       "(min-width: 640px)": {
+//         slides: { perView: 2, spacing: 20 },
+//       },
+//       "(min-width: 1024px)": {
+//         slides: { perView: 3, spacing: 20 },
+//       },
 //     },
 //   });
+
+//   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
 
 //   return (
 //     <section className="py-16 bg-gray-50" id="about">
 //       <div className="container mx-auto px-6 lg:px-20">
-//         {/* Présentation de la structure */}
+//         {/* Présentation */}
 //         <div className="text-center mb-12">
-//           <h2 className="text-4xl font-bold mb-4">Notre Entreprise</h2>
-//           <p className="text-gray-700 max-w-2xl mx-auto">
-//             Nous sommes une entreprise dédiée à l’innovation et au développement des talents. 
-//             Notre mission est de recruter, former et accompagner nos collaborateurs pour qu’ils réussissent dans un environnement dynamique et stimulant.
+//           <h2 className="text-4xl font-bold mb-4 text-gray-900">À Propos du <span className="text-orange-600">CFI-CIRAS</span></h2>
+//           <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed">
+//             Le CFI-CIRAS est un centre d'excellence dédié à la formation, à l'insertion professionnelle et à la recherche appliquée.
+//             Notre mission est de développer les compétences de demain, d'accompagner les talents vers l'emploi et de stimuler l'innovation pour un avenir durable.
+//             Nous bâtissons des ponts entre l'éducation et le monde professionnel, en offrant des opportunités uniques de croissance et de réussite.
 //           </p>
 //         </div>
 
-//         {/* Membres de l'équipe */}
+//         {/* Équipe */}
 //         <div className="mb-12">
-//           <h3 className="text-3xl font-semibold text-center mb-8">Notre Équipe</h3>
+//           <h3 className="text-3xl font-semibold text-center mb-8 text-gray-900">Notre Équipe <span className="text-orange-600">d'Experts</span></h3>
 //           <div ref={teamSliderRef} className="keen-slider">
 //             {teamMembers.map((member) => (
 //               <div
 //                 key={member.name}
-//                 className="keen-slider__slide bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105"
+//                 className="keen-slider__slide bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 transform transition duration-500 hover:scale-[1.02] hover:shadow-xl"
 //               >
-//                 <img
-//                   src={member.photo}
-//                   alt={member.name}
-//                   className="w-full h-48 object-cover"
-//                 />
+//                 <div className="relative w-full h-48">
+//                   <Image src={member.photo} alt={member.name} fill style={{ objectFit: "cover" }} className="transition duration-300 hover:brightness-90" />
+//                 </div>
 //                 <div className="p-6 text-center">
-//                   <h4 className="text-xl font-semibold">{member.name}</h4>
-//                   <p className="text-gray-500">{member.role}</p>
+//                   <h4 className="text-xl font-semibold text-gray-800">{member.name}</h4>
+//                   <p className="text-orange-600 font-medium">{member.role}</p>
 //                 </div>
 //               </div>
 //             ))}
 //           </div>
 //         </div>
 
-//         {/* Formations offertes */}
+//         {/* Formations */}
 //         <div className="mb-16">
-//           <h3 className="text-3xl font-semibold text-center mb-8">Formations Offertes</h3>
+//           <h3 className="text-3xl font-semibold text-center mb-8 text-gray-900">Nos Programmes de <span className="text-green-600">Formation</span></h3>
 //           <div ref={trainingSliderRef} className="keen-slider">
 //             {trainings.map((training) => (
 //               <div
 //                 key={training.title}
-//                 className="keen-slider__slide bg-white rounded-xl shadow-lg p-6 transform transition duration-500 hover:scale-105"
+//                 className="keen-slider__slide bg-white rounded-xl shadow-lg p-6 border border-gray-100 flex flex-col items-center text-center transform transition duration-500 hover:scale-[1.02] hover:shadow-xl"
 //               >
-//                 <h4 className="text-xl font-semibold mb-2">{training.title}</h4>
-//                 <p className="text-gray-600">{training.description}</p>
+//                 <div className="bg-orange-100 p-3 rounded-full mb-4">
+//                   {training.icon}
+//                 </div>
+//                 <h4 className="text-xl font-semibold mb-2 text-gray-800">{training.title}</h4>
+//                 <p className="text-gray-600 leading-relaxed">{training.description}</p>
 //               </div>
 //             ))}
 //           </div>
 //         </div>
 
-//         {/* Nos Valeurs & Chiffres Clés */}
-//         <div>
-//           <h3 className="text-3xl font-semibold text-center mb-8">Nos Valeurs</h3>
+//         {/* Valeurs & Chiffres Clés */}
+//         <div ref={ref}>
+//           <h3 className="text-3xl font-semibold text-center mb-8 text-gray-900">Nos <span className="text-orange-600">Valeurs</span> Fondamentales</h3>
 //           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
 //             {values.map((value) => (
 //               <div
 //                 key={value.title}
-//                 className="bg-white rounded-xl shadow p-6 text-center hover:shadow-lg transition"
+//                 className="bg-white rounded-xl shadow p-6 text-center border border-gray-100 hover:shadow-lg transition duration-300 hover:scale-[1.02]"
 //               >
-//                 <h4 className="text-xl font-semibold mb-2">{value.title}</h4>
-//                 <p className="text-gray-600">{value.description}</p>
+//                 <div className="bg-green-100 p-3 rounded-full mb-4 mx-auto w-fit">
+//                   {value.icon}
+//                 </div>
+//                 <h4 className="text-xl font-semibold mb-2 text-gray-800">{value.title}</h4>
+//                 <p className="text-gray-600 leading-relaxed">{value.description}</p>
 //               </div>
 //             ))}
 //           </div>
 
 //           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
 //             {stats.map((stat, index) => (
-//               <div key={index} className="flex flex-col items-center">
-//                 <div className="mb-2">{stat.icon}</div>
-//                 <h3 className="text-3xl font-bold">{stat.value}</h3>
-//                 <p className="text-gray-600">{stat.label}</p>
-//               </div>
+//               <motion.div
+//                 key={index}
+//                 className="flex flex-col items-center bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-300"
+//                 initial={{ opacity: 0, y: 20 }}
+//                 animate={inView ? { opacity: 1, y: 0 } : {}}
+//                 transition={{ delay: index * 0.2 }}
+//               >
+//                 <div className="mb-3">{stat.icon}</div>
+//                 <h3 className="text-4xl font-bold text-gray-900">
+//                   {inView ? <AnimatedNumber target={stat.value} /> : "0"}
+//                 </h3>
+//                 <p className="text-gray-600 mt-1">{stat.label}</p>
+//               </motion.div>
 //             ))}
 //           </div>
 //         </div>
@@ -139,79 +185,93 @@
 // }
 
 
-
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useKeenSlider } from "keen-slider/react";
+import { useKeenSlider, KeenSliderInstance } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { Award, Users, Briefcase, GraduationCap } from "lucide-react";
+import {
+  Award,
+  Users,
+  Briefcase,
+  GraduationCap,
+  Lightbulb,
+  Handshake,
+  TrendingUp,
+  BookOpen,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { motion, animate } from "framer-motion";
+import Image from "next/image";
 
 const teamMembers = [
-  { name: "Alice Dupont", role: "CEO", photo: "./images/agent1.jpg" },
-  { name: "Bob Martin", role: "CTO", photo: "./images/agent2.jpg" },
-  { name: "Clara N’Goma", role: "HR Manager", photo: "./images/agent3.jpg" },
-  { name: "David Kamanzi", role: "Developer", photo: "./images/agent4.jpg" },
-  { name: "Emma Nsimba", role: "Designer", photo: "./images/agent5.jpg" },
+  { name: "Alain EKONDZI", role: "Docteur en informatique, Directeur du CFI-CIRAS", photo: "/images/agent1.jpg" },
+  { name: "ILOKI-NGATSONGO Alphonse", role: "Ingénieur en informatique", photo: "/images/agent2.jpg" },
+  { name: "OBAMI YALLA Christ", role: "Docteur en droit", photo: "/images/agent3.jpg" },
+  { name: "David Kamanzi", role: "Chef de Projet du CFI-CIRAS", photo: "/images/agent4.jpg" },
+  { name: "Emma Nsimba", role: "Responsable Pédagogique du CFI-CIRAS", photo: "/images/agent5.jpg" },
 ];
 
 const trainings = [
-  { title: "Leadership et management", description: "Formation pour développer vos compétences en management." },
-  { title: "Développement Web", description: "Apprenez les dernières technologies front-end et back-end." },
-  { title: "Data Science & IA", description: "Formation pour maîtriser Python, ML et visualisation de données." },
-  { title: "Marketing Digital", description: "Apprenez à optimiser vos campagnes et vos réseaux sociaux." },
-  { title: "Communication", description: "Développez vos compétences en communication professionnelle." },
+  { title: "Génie Logiciel", description: "Acquérez les compétences clés pour réussir votre insertion professionnelle et évoluer.", icon: <Briefcase className="text-orange-600" size={28} /> },
+  { title: "Système et Réseaux", description: "Maîtrisez les outils et technologies numériques essentiels pour le marché du travail actuel.", icon: <BookOpen className="text-orange-600" size={28} /> },
+  { title: "Ingénierie Logicielle & Cybersécurité", description: "Formez-vous aux méthodes de développement logiciel et aux meilleures pratiques de cybersécurité.", icon: <Lightbulb className="text-orange-600" size={28} /> },
+  { title: "Gestion de Projets Innovants", description: "Apprenez à piloter des projets complexes, de l'idéation à la réalisation, avec agilité.", icon: <TrendingUp className="text-orange-600" size={28} /> },
+  { title: "Administration Publique", description: "Formation en gestion publique, politiques, institutions, etc.", icon: <GraduationCap className="text-orange-600" size={28} /> },
+  { title: "Réseaux & Télécommunications", description: "Devenez un expert en connectivité, protocoles et infrastructures télécom.", icon: <GraduationCap className="text-orange-600" size={28} /> },
 ];
 
 const values = [
-  { title: "Innovation", description: "Nous encourageons la créativité et l’adoption de nouvelles technologies." },
-  { title: "Excellence", description: "Nous visons la qualité dans tous nos projets et recrutements." },
-  { title: "Transparence", description: "Une communication claire et honnête avec nos collaborateurs." },
-  { title: "Croissance", description: "Nous investissons dans le développement continu de nos talents." },
+  { title: "Engagement", description: "Nous nous engageons pour la réussite de chaque talent et la qualité de nos services.", icon: <Handshake className="text-green-600" size={28} /> },
+  { title: "Innovation", description: "Nous encourageons la créativité et l’adoption de nouvelles approches pour un impact maximal.", icon: <Lightbulb className="text-green-600" size={28} /> },
+  { title: "Intégrité", description: "Nous agissons avec éthique, transparence et respect dans toutes nos interactions.", icon: <Award className="text-green-600" size={28} /> },
+  { title: "Développement Continu", description: "Nous investissons dans l'apprentissage et l'amélioration constante de nos programmes et de nos équipes.", icon: <TrendingUp className="text-green-600" size={28} /> },
 ];
 
 const stats = [
-  { icon: <Users className="w-8 h-8 text-indigo-600" />, value: 200, label: "Collaborateurs" },
-  { icon: <Briefcase className="w-8 h-8 text-indigo-600" />, value: 120, label: "Projets Réalisés" },
-  { icon: <GraduationCap className="w-8 h-8 text-indigo-600" />, value: 50, label: "Formations Données" },
-  { icon: <Award className="w-8 h-8 text-indigo-600" />, value: 10, label: "Prix & Distinctions" },
+  { icon: <Users className="w-8 h-8 text-orange-600" />, value: 250, label: "Candidats Recrutés" },
+  { icon: <GraduationCap className="w-8 h-8 text-orange-600" />, value: 150, label: "Formations Dispenses" },
+  { icon: <Handshake classNumber="w-8 h-8 text-orange-600" />, value: 75, label: "Partenaires Entreprises" },
+  { icon: <Award className="w-8 h-8 text-orange-600" />, value: 90, label: "Taux d’Insertion (%)" },
 ];
 
 function AnimatedNumber({ target }: { target: number }) {
   const [value, setValue] = useState(0);
-
   useEffect(() => {
-    let controls = animate(0, target, {
+    const controls = animate(0, target, {
       duration: 2,
       onUpdate: (v) => setValue(Math.floor(v)),
     });
-
     return () => controls.stop();
   }, [target]);
-
-  return <span>{value}+</span>;
+  return <span>{value}{target === 90 ? "%" : "+"}</span>;
 }
 
 export default function AboutSection() {
-  const [teamSliderRef] = useKeenSlider<HTMLDivElement>({
-    slidesPerView: 1,
-    spacing: 20,
+  // On stocke aussi l’instance du slider pour manipuler avec les boutons
+  const [teamSlider, teamApi] = useKeenSlider<HTMLDivElement>({
     loop: true,
+    slides: {
+      perView: 1,
+      spacing: 20,
+    },
     breakpoints: {
-      "(min-width: 640px)": { slidesPerView: 2 },
-      "(min-width: 1024px)": { slidesPerView: 3 },
+      "(min-width: 640px)": { slides: { perView: 2, spacing: 20 } },
+      "(min-width: 1024px)": { slides: { perView: 3, spacing: 20 } },
     },
   });
 
-  const [trainingSliderRef] = useKeenSlider<HTMLDivElement>({
-    slidesPerView: 1,
-    spacing: 20,
+  const [trainingSlider, trainingApi] = useKeenSlider<HTMLDivElement>({
     loop: true,
+    slides: {
+      perView: 1,
+      spacing: 20,
+    },
     breakpoints: {
-      "(min-width: 640px)": { slidesPerView: 2 },
-      "(min-width: 1024px)": { slidesPerView: 3 },
+      "(min-width: 640px)": { slides: { perView: 2, spacing: 20 } },
+      "(min-width: 1024px)": { slides: { perView: 3, spacing: 20 } },
     },
   });
 
@@ -220,45 +280,95 @@ export default function AboutSection() {
   return (
     <section className="py-16 bg-gray-50" id="about">
       <div className="container mx-auto px-6 lg:px-20">
-        {/* Présentation */}
+        {/* Titre + intro */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Notre Entreprise</h2>
-          <p className="text-gray-700 max-w-2xl mx-auto">
-            Nous sommes une entreprise dédiée à l’innovation et au développement des talents. 
-            Notre mission est de recruter, former et accompagner nos collaborateurs pour qu’ils réussissent dans un environnement dynamique et stimulant.
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">
+            À Propos du <span className="text-orange-600">CFI-CIRAS</span>
+          </h2>
+          <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed">
+            Le CFI-CIRAS est le Centre de Formation en Informatique du CIRAS, un établissement d’enseignement supérieur public. :contentReference[oaicite:0]{index=0}
+            <br />
+            Adresse : Immeuble CFI-CIRAS, rue Lamothe, B.P. 1542, Brazzaville :contentReference[oaicite:1]{index=1}<br />
+            Contact : +242 06 403 85 36 • contact@cfi-ciras.cg :contentReference[oaicite:2]{index=2}
           </p>
         </div>
 
-        {/* Équipe */}
-        <div className="mb-12">
-          <h3 className="text-3xl font-semibold text-center mb-8">Notre Équipe</h3>
-          <div ref={teamSliderRef} className="keen-slider">
+        {/* Équipe avec navigation */}
+        <div className="mb-12 relative">
+          <h3 className="text-3xl font-semibold text-center mb-8 text-gray-900">
+            Notre Équipe <span className="text-orange-600">d’Experts</span>
+          </h3>
+          {/* Boutons navigation */}
+          <button
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 hover:bg-gray-100 z-10"
+            onClick={() => teamApi?.prev()}
+            aria-label="Slide précédent"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 hover:bg-gray-100 z-10"
+            onClick={() => teamApi?.next()}
+            aria-label="Slide suivant"
+          >
+            <ChevronRight size={24} />
+          </button>
+
+          <div ref={teamSlider} className="keen-slider">
             {teamMembers.map((member) => (
               <div
                 key={member.name}
-                className="keen-slider__slide bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105"
+                className="keen-slider__slide bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 transform transition duration-500 hover:scale-[1.02] hover:shadow-xl"
               >
-                <img src={member.photo} alt={member.name} className="w-full h-48 object-cover" />
+                <div className="relative w-full h-48">
+                  <Image
+                    src={member.photo}
+                    alt={member.name}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    className="transition duration-300 hover:brightness-90"
+                  />
+                </div>
                 <div className="p-6 text-center">
-                  <h4 className="text-xl font-semibold">{member.name}</h4>
-                  <p className="text-gray-500">{member.role}</p>
+                  <h4 className="text-xl font-semibold text-gray-800">{member.name}</h4>
+                  <p className="text-orange-600 font-medium">{member.role}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Formations */}
-        <div className="mb-16">
-          <h3 className="text-3xl font-semibold text-center mb-8">Formations Offertes</h3>
-          <div ref={trainingSliderRef} className="keen-slider">
+        {/* Formations avec navigation */}
+        <div className="mb-16 relative">
+          <h3 className="text-3xl font-semibold text-center mb-8 text-gray-900">
+            Nos Programmes de <span className="text-green-600">Formation</span>
+          </h3>
+          <button
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 hover:bg-gray-100 z-10"
+            onClick={() => trainingApi?.prev()}
+            aria-label="Slide précédent formation"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 hover:bg-gray-100 z-10"
+            onClick={() => trainingApi?.next()}
+            aria-label="Slide suivant formation"
+          >
+            <ChevronRight size={24} />
+          </button>
+
+          <div ref={trainingSlider} className="keen-slider">
             {trainings.map((training) => (
               <div
                 key={training.title}
-                className="keen-slider__slide bg-white rounded-xl shadow-lg p-6 transform transition duration-500 hover:scale-105"
+                className="keen-slider__slide bg-white rounded-xl shadow-lg p-6 border border-gray-100 flex flex-col items-center text-center transform transition duration-500 hover:scale-[1.02] hover:shadow-xl"
               >
-                <h4 className="text-xl font-semibold mb-2">{training.title}</h4>
-                <p className="text-gray-600">{training.description}</p>
+                <div className="bg-orange-100 p-3 rounded-full mb-4">
+                  {training.icon}
+                </div>
+                <h4 className="text-xl font-semibold mb-2 text-gray-800">{training.title}</h4>
+                <p className="text-gray-600 leading-relaxed">{training.description}</p>
               </div>
             ))}
           </div>
@@ -266,15 +376,20 @@ export default function AboutSection() {
 
         {/* Valeurs & Chiffres Clés */}
         <div ref={ref}>
-          <h3 className="text-3xl font-semibold text-center mb-8">Nos Valeurs</h3>
+          <h3 className="text-3xl font-semibold text-center mb-8 text-gray-900">
+            Nos <span className="text-orange-600">Valeurs</span> Fondamentales
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {values.map((value) => (
               <div
                 key={value.title}
-                className="bg-white rounded-xl shadow p-6 text-center hover:shadow-lg transition"
+                className="bg-white rounded-xl shadow p-6 text-center border border-gray-100 hover:shadow-lg transition duration-300 hover:scale-[1.02]"
               >
-                <h4 className="text-xl font-semibold mb-2">{value.title}</h4>
-                <p className="text-gray-600">{value.description}</p>
+                <div className="bg-green-100 p-3 rounded-full mb-4 mx-auto w-fit">
+                  {value.icon}
+                </div>
+                <h4 className="text-xl font-semibold mb-2 text-gray-800">{value.title}</h4>
+                <p className="text-gray-600 leading-relaxed">{value.description}</p>
               </div>
             ))}
           </div>
@@ -283,16 +398,16 @@ export default function AboutSection() {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                className="flex flex-col items-center"
+                className="flex flex-col items-center bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: index * 0.2 }}
               >
-                <div className="mb-2">{stat.icon}</div>
-                <h3 className="text-3xl font-bold">
+                <div className="mb-3">{stat.icon}</div>
+                <h3 className="text-4xl font-bold text-gray-900">
                   {inView ? <AnimatedNumber target={stat.value} /> : "0"}
                 </h3>
-                <p className="text-gray-600">{stat.label}</p>
+                <p className="text-gray-600 mt-1">{stat.label}</p>
               </motion.div>
             ))}
           </div>

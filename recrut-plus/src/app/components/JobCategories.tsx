@@ -2,12 +2,12 @@
 import { Briefcase, Code, Megaphone, PenTool, BarChart3, Users } from "lucide-react";
 
 const categories = [
-  { name: "Design", icon: PenTool },
-  { name: "Développement", icon: Code },
-  { name: "Marketing", icon: Megaphone },
-  { name: "Gestion", icon: Briefcase },
-  { name: "Finance", icon: BarChart3 },
-  { name: "Ressources humaines", icon: Users },
+  { name: "Système et Réseaux", icon: PenTool },
+  { name: "Développement Logiciel", icon: Code },
+  { name: "Communication", icon: Megaphone },
+  { name: "Gestion Financière", icon: Briefcase },
+  { name: "Mathématiques et Sciences", icon: BarChart3 },
+  { name: "Administratives Publiques", icon: Users },
 ];
 
 export default function JobCategories() {
@@ -19,7 +19,7 @@ export default function JobCategories() {
           Catégories d&apos;emplois populaires
         </h2>
         <p className="text-gray-600 mb-12">
-          Parcourez les offres par catégorie et trouvez le poste idéal pour vous.
+          Le CFI-CIRAS recrute dans différentes catégories d'emplois.
         </p>
 
         {/* Categories Grid */}
