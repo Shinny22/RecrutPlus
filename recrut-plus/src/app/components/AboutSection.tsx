@@ -286,11 +286,12 @@ export default function AboutSection() {
             À Propos du <span className="text-orange-600">CFI-CIRAS</span>
           </h2>
           <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed">
-            Le CFI-CIRAS est le Centre de Formation en Informatique du CIRAS, un établissement d’enseignement supérieur public. :contentReference[oaicite:0]{index=0}
-            <br />
-            Adresse : Immeuble CFI-CIRAS, rue Lamothe, B.P. 1542, Brazzaville :contentReference[oaicite:1]{index=1}<br />
-            Contact : +242 06 403 85 36 • contact@cfi-ciras.cg :contentReference[oaicite:2]{index=2}
-          </p>
+  Le CFI-CIRAS est le Centre de Formation en Informatique du CIRAS, un établissement d’enseignement supérieur public.
+  <br />
+  Adresse : Immeuble CFI-CIRAS, rue Lamothe, B.P. 1542, Brazzaville
+  <br />
+  Contact : +242 06 403 85 36 • contact@cfi-ciras.cg
+</p>
         </div>
 
         {/* Équipe avec navigation */}
