@@ -133,14 +133,14 @@ export default function OffresPage() {
         <div>
           <button
             onClick={() => setShowForm(false)}
-            className="mb-4 px-4 py-2 rounded-md bg-gray-300 hover:bg-gray-400"
+            className="mb-4 px-4 py-2 rounded-md bg-green-300 hover:bg-gray-400"
           >
             ← Retour aux offres
           </button>
           <PostulerForm campagnes={[selectedCampagne]} />
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-center justify-center">
+        <div className="grid gap-6 sm:grid-cols-3 lg:grid-cols-2 items-center justify-center">
           {offres.length === 0 ? (
             <p className="text-gray-600 bg-red-500/25 w-full p-8 rounded-xl shadow hover:shadow-lg transition">Aucune campagne n’est disponible pour l’instant.</p>
           ) : (
@@ -149,7 +149,7 @@ export default function OffresPage() {
                 key={offre.cod_anne}
                 className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition"
               >
-                <h2 className="text-xl font-semibold text-orange-600">
+                <h2 className="text-xl font-bold text-green-600">
                   {offre.cod_anne}
                 </h2>
                 <p className="text-gray-700 mt-2 line-clamp-3">{offre.description}</p>
@@ -159,7 +159,7 @@ export default function OffresPage() {
                 </p>
                 <p
                   className={`mt-2 text-sm font-medium ${
-                    offre.etat === "Ouverte" ? "text-green-600" : "text-red-600"
+                    offre.etat === "Ouvert" ? "text-green-600" : "text-red-600"
                   }`}
                 >
                   {offre.etat}
@@ -172,8 +172,8 @@ export default function OffresPage() {
                     setShowForm(true);
                   }}
                   className={`mt-4 w-full px-4 py-2 rounded-md text-white font-semibold ${
-                    offre.etat === "Ouverte"
-                      ? "bg-orange-600 hover:bg-orange-700"
+                    offre.etat === "Ouvert"
+                      ? "bg-green-600 hover:bg-green-700"
                       : "bg-gray-400 cursor-not-allowed"
                   }`}
                 >

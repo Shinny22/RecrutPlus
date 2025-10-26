@@ -214,20 +214,20 @@ export default function Navbar() {
   };
 
   return (
-    <header className="w-full fixed top-0 z-50 bg-white/90 backdrop-blur-md shadow-md border-b border-gray-200">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="w-full fixed top-0 z-50 bg-white/55 backdrop-blur-sm  shadow-md border-b border-green-800/25">
+      <nav className="max-w-7xl h-20 mx-auto  px-6 sm:px-6 lg:px-8">
+        <div className="flex items-center m-6 justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="block items-center m-0">
             <Image
               src="/images/logo cfi.png"
               alt="Logo CFI"
-              width={60}
-              height={60}
+              width={180}
+              height={10}
               className="rounded-md"
               priority
             />
-            <span className="text-lg font-bold text-green-800">CFI-Recrute</span>
+            {/* <span className="text-lg font-bold mt-[-5] pl-15 text-green-800">CFI-Recrute</span> */}
           </Link>
 
           {/* Liens Desktop */}
@@ -241,9 +241,9 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/Offres" className="nav-link">Offres</Link>
-                <Link href="/Consulter" className="nav-link">Postuler</Link>
-                <Link href="#contact" className="nav-link">Contact</Link>
+                <Link href="/Offres" className="nav-link text-lg">Offres</Link>
+                <Link href="/Consulter" className="nav-link text-lg">Postuler</Link>
+                <Link href="#contact" className="nav-link text-lg">Contact</Link>
               </>
             )}
           </div>

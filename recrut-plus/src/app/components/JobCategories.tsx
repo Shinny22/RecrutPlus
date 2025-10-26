@@ -23,7 +23,7 @@ export default function JobCategories() {
         </p>
 
         {/* Categories Grid */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {categories.map((cat, index) => {
             const Icon = cat.icon;
             return (
@@ -31,8 +31,8 @@ export default function JobCategories() {
                 key={index}
                 className="bg-white shadow-md rounded-xl p-6 flex flex-col items-center justify-center gap-3 border hover:shadow-xl transition duration-300 cursor-pointer"
               >
-                <div className="bg-orange-100 p-4 rounded-full">
-                  <Icon className="text-orange-600" size={28} />
+                <div className="bg-green-100 p-4 rounded-full">
+                  <Icon className="text-green-600" size={28} />
                 </div>
                 <h3 className="font-semibold text-gray-800">{cat.name}</h3>
               </div>

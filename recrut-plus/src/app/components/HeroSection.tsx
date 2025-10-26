@@ -124,7 +124,7 @@ import "keen-slider/keen-slider.min.css";
 
 const slides = [
   {
-    src: "/images/femme_cadre.png",
+    src: "/images/cfi_image.jpg",
     alt: "Femme cadre",
     title: "Construisez votre avenir avec le CFI-CIRAS",
     subtitle: "Rejoins notre équipe dynamiques et professionelle. Des opportunités uniques pour votre carrière",
@@ -191,9 +191,9 @@ export default function HeroSection() {
   );
 
   return (
-    <section className="relative bg-green-50 pb-10">
+    <section className="relative bg-green-50 pb-10 ">
       {/* Slider */}
-      <div ref={sliderRef} className="keen-slider relative h-[95vh]  overflow-hidden" >
+      <div ref={sliderRef} className="keen-slider relative h-[95vh]  overflow-hidden " >
         {slides.map((slide, i) => (
           <div key={i} className="keen-slider__slide relative ">
             {/* Image background */}
