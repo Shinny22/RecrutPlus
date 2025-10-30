@@ -300,7 +300,18 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="py-16 bg-gray-50">
+    <section id="contact" className="relative py-16 bg-gray-100" >
+      <div className="absolute p-35 rounded-b-xl rounded-r-full bg-green-800/45 mt-70"></div>
+      <div
+        className="absolute inset-0 bg-bottom bg-no-repeat bg-contain opacity-2 pointer-events-none"
+        // style={{ backgroundImage: "url('/images/logo cfi.png')" }}
+        style={{
+          backgroundImage: "url('/images/cfi_image.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+      
       <div className="max-w-6xl mx-auto px-4 flex flex-col lg:flex-row items-start gap-12">
         {/* Contenu gauche */}
         <div className="lg:w-1/2 text-center lg:text-left">

@@ -84,10 +84,17 @@ export default function HowItWorks() {
     <section className="relative py-20 bg-gray-50 overflow-hidden">
       {/* Image de fond subtile */}
       <div
-        className="absolute inset-0 bg-center bg-no-repeat bg-contain opacity-5 pointer-events-none"
-        style={{ backgroundImage: "url('/images/logo cfi.png')" }}
+        className="absolute inset-0 bg-center bg-no-repeat bg-contain opacity-6 pointer-events-none"
+        // style={{ backgroundImage: "url('/images/logo cfi.png')" }}
+        style={{
+          backgroundImage: "url('/images/cfi_image.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       ></div>
 
+      <div className="absolute p-35 rounded-t-full  ml-247 mt-70 bg-green-800/45"></div>
+      {/* <div className="absolute p-35 rounded-t-full  ml-250  bg-green-800/25"></div> */}
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* CÔTÉ GAUCHE - Étapes */}
         <div>

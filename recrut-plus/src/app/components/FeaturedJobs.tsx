@@ -135,6 +135,7 @@ const jobs = [
 export default function FeaturedJobs() {
   return (
     <section className="py-20 bg-gray-70">
+      <div className="absolute p-35 rounded-b-full  rounded-r-full bg-green-800/45"></div>
       <div className="container mx-auto px-6 text-center">
         {/* Titre principal */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -183,6 +184,7 @@ export default function FeaturedJobs() {
           ))}
         </div>
       </div>
+      <div className="absolute p-35 rounded-t-xl ml-250 rounded-l-full bg-green-800/45"></div>
     </section>
   );
 }

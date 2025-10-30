@@ -62,6 +62,7 @@ export default function WhyJoinUs() {
 
   return (
     <section className="py-20 bg-white">
+    <div className="absolute p-25 rounded-b-full  rounded-r-full bg-green-800/25"></div>
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-3xl font-bold mb-12">Pourquoi nous rejoindre ?</h2>
         <div className="grid md:grid-cols-3 gap-10">
@@ -74,6 +75,7 @@ export default function WhyJoinUs() {
           ))}
         </div>
       </div>
+      <div className="absolute p-25 rounded-t-full ml-250 rounded-l-full bg-green-800/45"></div>
     </section>
   );
 }

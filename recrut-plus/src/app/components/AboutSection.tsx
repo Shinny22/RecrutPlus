@@ -299,11 +299,11 @@ import { motion, animate } from "framer-motion";
 import Image from "next/image";
 
 const teamMembers = [
-  { name: "Alain EKONDZI", role: "Docteur en informatique, Directeur du CFI-CIRAS", photo: "/images/agent1.jpg" },
-  { name: "ILOKI-NGATSONGO Alphonse", role: "Ingénieur en informatique", photo: "/images/agent2.jpg" },
-  { name: "OBAMI YALLA Christ", role: "Docteur en droit", photo: "/images/agent3.jpg" },
-  { name: "David Kamanzi", role: "Chef de Projet du CFI-CIRAS", photo: "/images/agent4.jpg" },
-  { name: "Emma Nsimba", role: "Responsable Pédagogique du CFI-CIRAS", photo: "/images/agent5.jpg" },
+  { name: "Alain EKONDZI", role: "Docteur en informatique, Directeur du CFI-CIRAS", photo: "/images/Dcfi.jpg" },
+  { name: "ILOKI-NGATSONGO Alphonse", role: "Ingénieur en informatique", photo: "/images/iloki.jpg" },
+  { name: "OBAMI YALLA Christ", role: "Docteur en droit", photo: "/images/yala.jpg" },
+  { name: "David Kamanzi", role: "Chef de Projet du CFI-CIRAS", photo: "/images/agent5.jpg" },
+  { name: "Emma Nsimba", role: "Responsable Pédagogique du CFI-CIRAS", photo: "/images/agent4.jpg" },
 ];
 
 const trainings = [
@@ -405,7 +405,16 @@ export default function AboutSection() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
 
   return (
-    <section className="py-16 bg-gray-50" id="about">
+    <section className="relative py-16 bg-gray-50" id="about">
+      <div
+        className="absolute inset-0 bg-center bg-no-repeat bg-contain opacity-5 pointer-events-none"
+        // style={{ backgroundImage: "url('/images/logo cfi.png')" }}
+        style={{
+          backgroundImage: "url('/images/cfi_image.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
       <div className="container mx-auto px-6 lg:px-20">
         {/* Présentation */}
         <div className="text-center mb-12">

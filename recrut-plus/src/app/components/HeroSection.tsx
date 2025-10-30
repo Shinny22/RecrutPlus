@@ -127,13 +127,13 @@ const slides = [
     src: "/images/cfi_image.jpg",
     alt: "Femme cadre",
     title: "Construisez votre avenir avec le CFI-CIRAS",
-    subtitle: "Rejoins notre équipe dynamiques et professionelle. Des opportunités uniques pour votre carrière",
+    subtitle: "Rejoins notre équipe dynamique et professionelle. Des opportunités uniques pour votre carrière",
   },
   {
     src: "/images/Teamwork.jpg",
     alt: "Travail d'équipe",
     title: "Rejoignez une équipe dynamique",
-    subtitle: "Collaborez avec des experts du numérique et de la sécurité",
+    subtitle: "Collaborez avec des experts du numérique,de la sécurité, des sciences et de l'administation",
   },
   {
     src: "/images/office.jpg",
@@ -191,7 +191,7 @@ export default function HeroSection() {
   );
 
   return (
-    <section className="relative bg-green-50 pb-10 ">
+    <section className="relative bg-gray-10 pb-10 ">
       {/* Slider */}
       <div ref={sliderRef} className="keen-slider relative h-[95vh]  overflow-hidden " >
         {slides.map((slide, i) => (
@@ -207,6 +207,9 @@ export default function HeroSection() {
 
             {/* Overlay sombre */}
             <div className="absolute inset-0 bg-black/40 pb-10" />
+            <div className="absolute inset-0 bg-green-700/30 pb-10" />
+            
+
 
             {/* Texte animé */}
             <motion.div
@@ -224,13 +227,13 @@ export default function HeroSection() {
 
               {/* Barre de recherche */}
               {i === 0 && (
-                <div className="mt-8 flex items-center bg-white shadow-lg rounded-xl p-2 w-full max-w-xl ring-1 ring-black/10">
+                <div className="lg:max-w-md md:max-w-lg mt-8 flex items-center bg-white  shadow-lg rounded-xl p-2 w-full max-w-xl ring-1 ring-black/10">
                   <input
                     type="text"
                     placeholder="Rechercher un titre de poste ou un mot-clé"
                     className="flex-grow px-4 py-2 outline-none rounded-l-xl"
                   />
-                  <button className="bg-green-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-orange-600 transition">
+                  <button className="lg:max-w-lg  md:max-w-md bg-green-700 text-white px-6 py-2 rounded-xl flex items-center gap-2 hover:bg-green-600 transition">
                     <Search size={18} />
                     Rechercher
                   </button>
@@ -238,6 +241,7 @@ export default function HeroSection() {
               )}
             </motion.div>
           </div>
+          
         ))}
       </div>
     </section>

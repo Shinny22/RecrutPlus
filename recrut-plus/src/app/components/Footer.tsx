@@ -159,6 +159,7 @@ export default function Footer() {
     >
       {/* Overlay sombre */}
       <div className="absolute inset-0 bg-black/80" />
+      <div className="absolute inset-0 bg-green-700/30 pb-10" />
 
       {/* Contenu du footer */}
       <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-8">

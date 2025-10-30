@@ -252,6 +252,7 @@ export default function Testimonials() {
           style={{ backgroundImage: "radial-gradient(circle at 50% 50%, #3b82f6, #0ea5e9, #2563eb)" }}
         />
       </div>
+      <div className="absolute p-35 rounded-t-xl ml-250 rounded-l-full bg-green-800/45"></div>
     </section>
   );
 }

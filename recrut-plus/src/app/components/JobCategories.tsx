@@ -12,7 +12,16 @@ const categories = [
 
 export default function JobCategories() {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className=" relative py-20 bg-gray-150">
+      <div
+        className="absolute inset-0 bg-center bg-no-repeat bg-contain opacity-2 pointer-events-none"
+        // style={{ backgroundImage: "url('/images/logo cfi.png')" }}
+        style={{
+          backgroundImage: "url('/images/logo cfi.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
       <div className="container mx-auto px-6 text-center">
         {/* Titre */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
