@@ -301,7 +301,7 @@ export default function ContactForm() {
 
   return (
     <section id="contact" className="relative py-16 bg-gray-100" >
-      <div className="absolute p-35 rounded-b-xl rounded-r-full bg-green-800/45 mt-70"></div>
+      <div className="absolute p-35 rounded-b-xl rounded-r-full bg-green-800/60 mt-50"></div>
       <div
         className="absolute inset-0 bg-bottom bg-no-repeat bg-contain opacity-2 pointer-events-none"
         // style={{ backgroundImage: "url('/images/logo cfi.png')" }}

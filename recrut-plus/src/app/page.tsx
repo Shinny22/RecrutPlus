@@ -13,6 +13,7 @@ import Navbar from "./components/NavBar";
 import Testimonials from "./components/Testimonials";
 import WhyChooseUs from "./components/WhyChooseUs";
 import ContactForm from "./components/ContactForm";
+import CookieBanner from "./components/CookieBanner";
 
 
 
@@ -20,6 +21,7 @@ export default function Home() {
   return (
     <main>
       <Navbar/>
+      <CookieBanner />
       <HeroSection />
       <HowItWorks />
       <JobCategories />

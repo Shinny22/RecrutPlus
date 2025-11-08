@@ -439,18 +439,18 @@ export default function AboutSection() {
             {teamMembers.map((member) => (
               <div
                 key={member.name}
-                className="keen-slider__slide bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 transform transition duration-500 hover:scale-[1.02] hover:shadow-xl"
+                className="keen-slider__slide bg-white  rounded-xl shadow-lg overflow-hidden border border-gray-100 transform transition duration-500 hover:scale-[1.02] hover:shadow-xl"
               >
-                <div className="relative w-full h-48">
+                <div className="relative w-full h-90">
                   <Image
                     src={member.photo}
                     alt={member.name}
                     fill
                     style={{ objectFit: "cover" }}
-                    className="transition duration-300 hover:brightness-90"
+                    className="transition duration-300 hover:brightness-90 "
                   />
                 </div>
-                <div className="p-6 text-center">
+                <div className="p-10 text-center bg-gray-800/10">
                   <h4 className="text-xl font-semibold text-gray-800">{member.name}</h4>
                   <p className="text-green-600 font-medium">{member.role}</p>
                 </div>

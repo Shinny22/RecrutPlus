@@ -278,6 +278,7 @@ export default function RegisterFormWizard() {
               {step === 4 && (
                 <button
                   type="submit"
+                  onClick={() => window.location.href = "/Offres"}
                   disabled={loading}
                   className="ml-auto px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
                 >

@@ -116,7 +116,7 @@ interface FormValues {
   telephone2?: string;
   email: string;
   photo?: FileList;
-  diplome: string;
+  diplome_fichier?: FileList;
   cv: FileList;
   anne_obt_dip: number;
   campagne: string;
@@ -226,7 +226,8 @@ const PostulerForm = ({ campagnes }: { campagnes: any[] }) => {
 
           <div className="flex flex-col">
             <label className="font-medium text-gray-700">Diplôme obtenu</label>
-            <input {...register("diplome")} placeholder="Ex : Licence en Informatique" className="input"/>
+            <input type="file" {...register("diplome_fichier")} placeholder="Ex : Licence en Informatique" className="input"/>
+            {/* <input type="file" {...register("photo")} className="input"/> */}
           </div>
 
           <div className="flex flex-col">
