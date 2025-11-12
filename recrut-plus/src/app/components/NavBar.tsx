@@ -88,7 +88,7 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => setShowRegister(true)}
-                  className="hidden sm:inline-block px-4 py-2 text-md font-semibold rounded-lg bg-green-800/25 border border-green-600/25 text-gray-100 hover:bg-green-700 transition"
+                  className="hidden sm:inline-block px-4 py-2 text-md font-semibold rounded-lg bg-green-800/35 border border-green-600/25 text-gray-100 hover:bg-green-700 transition"
                 >
                   Créer un compte
                 </button>

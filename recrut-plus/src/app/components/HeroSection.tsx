@@ -208,8 +208,7 @@ export default function HeroSection() {
             {/* Overlay sombre */}
             <div className="absolute inset-0 bg-black/40 pb-10" />
             <div className="absolute inset-0 bg-green-700/30 pb-10" />
-            
-
+           
 
             {/* Texte animé */}
             <motion.div

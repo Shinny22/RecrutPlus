@@ -18,7 +18,7 @@ export default function HowItWorks() {
         }}
       ></div>
 
-      <div className="absolute p-35 rounded-t-full  ml-247 mt-70 bg-green-800/45"></div>
+      <div className="absolute p-35 rounded-t-full  lg:ml-247 mt-70 bg-green-800/45 md: ml-300 mt-60"></div>
       {/* <div className="absolute p-35 rounded-t-full  ml-250  bg-green-800/25"></div> */}
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* CÔTÉ GAUCHE - Étapes */}
