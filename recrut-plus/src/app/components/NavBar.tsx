@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -31,11 +31,45 @@ export default function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
 
   // 🧠 Charger le candidat connecté depuis le localStorage
   useEffect(() => {
     const storedUser = safeParse<User>(localStorage.getItem("candidat"));
     if (storedUser) setUser(storedUser);
+  }, []);
+
+  // 🔒 Fermer les menus lors d'un clic en dehors ou sur ESC
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setProfileOpen(false);
+      }
+      if (
+        mobileRef.current &&
+        !mobileRef.current.contains(event.target as Node)
+      ) {
+        setMobileOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setProfileOpen(false);
+        setMobileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   // 🚪 Déconnexion
@@ -45,6 +79,11 @@ export default function Navbar() {
     localStorage.removeItem("candidat");
     setUser(null);
     window.location.href = "/";
+  };
+
+  const handleNavClick = () => {
+    setMobileOpen(false);
+    setProfileOpen(false);
   };
 
   return (
@@ -71,6 +110,7 @@ export default function Navbar() {
                 <Link href="/dashboard" className="nav-link">Dashboard</Link>
                 <Link href="/mes-demandes" className="nav-link">Mes candidatures</Link>
                 <Link href="/offres" className="nav-link">Offres</Link>
+                <Link href="/Consulter" className="nav-link">Postuler</Link>
                 <Link href="/contact" className="nav-link">Contact</Link>
               </>
             ) : (
@@ -100,40 +140,51 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <div className="relative">
-                <button
-                  onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition"
-                >
-                  {user.avatar ? (
-                    <Image
-                      src={user.avatar}
-                      alt={user.name}
-                      width={32}
-                      height={32}
-                      className="rounded-full"
-                    />
-                  ) : (
-                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center font-bold text-green-700">
-                      {user.name.charAt(0).toUpperCase()}
+              <div className="flex items-center gap-3">
+                <div className="relative" ref={profileRef}>
+                  <button
+                    onClick={() => setProfileOpen(!profileOpen)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition"
+                    aria-expanded={profileOpen}
+                    aria-haspopup="menu"
+                  >
+                    {user.avatar ? (
+                      <Image
+                        src={user.avatar}
+                        alt={user.name}
+                        width={32}
+                        height={32}
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center font-bold text-green-700">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <span className="hidden sm:inline text-sm font-medium">{user.name}</span>
+                    <ChevronDown size={16} className="text-gray-500" />
+                  </button>
+
+                  {profileOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-100 z-20" role="menu">
+                      <Link href="/profile" className="dropdown-item" onClick={handleNavClick}>Mon profil</Link>
+                      <Link href="/dashboard" className="dropdown-item" onClick={handleNavClick}>Mon tableau de bord</Link>
+                      <button
+                        onClick={handleLogout}
+                        className="dropdown-item text-red-600 w-full text-left"
+                      >
+                        Se déconnecter
+                      </button>
                     </div>
                   )}
-                  <span className="hidden sm:inline text-sm font-medium">{user.name}</span>
-                  <ChevronDown size={16} className="text-gray-500" />
-                </button>
+                </div>
 
-                {profileOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-100 z-20">
-                    <Link href="/profile" className="dropdown-item">Mon profil</Link>
-                    <Link href="/dashboard" className="dropdown-item">Mon tableau de bord</Link>
-                    <button
-                      onClick={handleLogout}
-                      className="dropdown-item text-red-600 w-full text-left"
-                    >
-                      Se déconnecter
-                    </button>
-                  </div>
-                )}
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 text-md rounded-lg bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 transition"
+                >
+                  Se déconnecter
+                </button>
               </div>
             )}
 
@@ -141,6 +192,8 @@ export default function Navbar() {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden p-2 rounded-md hover:bg-gray-100"
+              aria-expanded={mobileOpen}
+              aria-label="Menu"
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -150,14 +203,15 @@ export default function Navbar() {
 
       {/* Menu Mobile */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200">
+        <div className="md:hidden bg-white border-t border-gray-200" ref={mobileRef}>
           <div className="px-4 py-4 space-y-2">
             {user ? (
               <>
-                <Link href="/dashboard" className="mobile-link">Dashboard</Link>
-                <Link href="/mes-demandes" className="mobile-link">Mes candidatures</Link>
-                <Link href="/offres" className="mobile-link">Offres</Link>
-                <Link href="/profile" className="mobile-link">Mon profil</Link>
+                <Link href="/dashboard" className="mobile-link" onClick={handleNavClick}>Dashboard</Link>
+                <Link href="/mes-demandes" className="mobile-link" onClick={handleNavClick}>Mes candidatures</Link>
+                <Link href="/offres" className="mobile-link" onClick={handleNavClick}>Offres</Link>
+                <Link href="/Consulter" className="mobile-link" onClick={handleNavClick}>Postuler</Link>
+                <Link href="/profile" className="mobile-link" onClick={handleNavClick}>Mon profil</Link>
                 <button
                   onClick={handleLogout}
                   className="mobile-link text-red-600 w-full text-left"
@@ -167,9 +221,9 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/Offres" className="mobile-link">Offres</Link>
-                <Link href="/Consulter" className="mobile-link">Postuler</Link>
-                <Link href="#contact" className="mobile-link">Contact</Link>
+                <Link href="/Offres" className="mobile-link" onClick={handleNavClick}>Offres</Link>
+                <Link href="/Consulter" className="mobile-link" onClick={handleNavClick}>Postuler</Link>
+                <Link href="#contact" className="mobile-link" onClick={handleNavClick}>Contact</Link>
                 <button
                   onClick={() => {
                     setMobileOpen(false);

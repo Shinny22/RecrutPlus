@@ -1,15 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { User, FileText, Settings, LogOut, Briefcase } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import { User, FileText, Settings, LogOut, Briefcase, RefreshCw } from "lucide-react";
+import NavBar from "../components/NavBar";
 
 interface Candidature {
-  id: number;
-  poste: string;
-  entreprise: string;
-  statut: string;
-  date_postule: string;
+  id_dde: number;
+  date_depot: string;
+  etat: string;
+  reponse: string;
+  campagne: {
+    code: string;
+    description: string;
+    etat: string;
+  };
 }
+
 
 interface Candidat {
   id: number;
@@ -18,6 +25,7 @@ interface Candidat {
   photo: string;
   diplome: string;
   cv: string;
+
 }
 
 export default function CandidateDashboard() {
@@ -25,60 +33,102 @@ export default function CandidateDashboard() {
   const [user, setUser] = useState<Candidat | null>(null);
   const [candidatures, setCandidatures] = useState<Candidature[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const apiBase = "http://127.0.0.1:8000";
+
+  const fetchData = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Vous n'êtes pas connecté.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      setError(null);
+      setLoading(true);
+
+      const profileRes = await fetch(`${apiBase}/api/candidat/profile/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!profileRes.ok) throw new Error("Profil non disponible");
+      const profile = await profileRes.json();
+      setUser(profile);
+
+      const candidaturesRes = await fetch(`${apiBase}/candidat/candidatures/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!candidaturesRes.ok) throw new Error("Impossible de charger vos candidatures");
+      const candData = await candidaturesRes.json();
+      setCandidatures(candData.demandes || []);
+    } catch (err: unknown) {
+      console.error(err);
+      const message = err instanceof Error ? err.message : "Une erreur est survenue.";
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  }, [apiBase]);
 
   // Récupération via JWT
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    async function fetchData() {
-      try {
-        const res = await fetch("http://127.0.0.1:8000/api/candidat/profile/", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        setUser(data);
-
-        const res2 = await fetch("http://127.0.0.1:8000/api/candidat/candidatures/", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const candData = await res2.json();
-        setCandidatures(candData);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
     fetchData();
-  }, []);
+  }, [fetchData]);
 
-  if (loading) return <p className="text-center text-gray-500 py-8">Chargement...</p>;
+  const statusClass = (statut: string) => {
+    switch (statut) {
+      case "Acceptée":
+        return "bg-green-100 text-green-700";
+      case "En cours":
+        return "bg-yellow-100 text-yellow-700";
+      case "Refusée":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-200 text-gray-700";
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 ">
+      <img
+        src="/images/loading.gif" // mettre une image GIF amusante ou SVG animé
+        alt="Chargement..."
+        className="w-24 h-24 mb-4"
+      />
+      <p className="text-lg text-gray-500 text-center">Chargement... Veillez patienter</p>
+    </div>
+    );
+  }
 
   const tabs = [
     { id: "dashboard", label: "Tableau de bord", icon: <Briefcase size={18} /> },
     { id: "candidatures", label: "Mes candidatures", icon: <FileText size={18} /> },
+    { id: "offres", label: "Voir les autres offres", icon: <FileText size={18} /> },
     { id: "profil", label: "Mon profil", icon: <User size={18} /> },
     { id: "settings", label: "Paramètres", icon: <Settings size={18} /> },
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
+      <NavBar/>
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r shadow-sm p-6 flex flex-col justify-between">
+      <aside className="w-full lg:w-64 bg-white border-r shadow-sm p-6 flex flex-col justify-between sticky top-0 lg:static z-10">
         <div>
-          <div className="flex flex-col items-center mb-8">
-            <img
-              src={user?.photo || "/default-avatar.png"}
+          <div className="flex flex-col items-center mb-8 text-center">
+            <Image
+              src={user?.photo || "/images/default_user.png"}
               alt="avatar"
+              width={80}
+              height={80}
               className="w-20 h-20 rounded-full object-cover mb-3"
             />
-            <h2 className="font-semibold text-lg text-gray-800">{user?.nom}</h2>
-            <p className="text-sm text-gray-500">{user?.email}</p>
+            <h2 className="font-semibold text-lg text-gray-800">{user?.nom_cand  || "Candidat"}{" "}{user?.pren_cand || "Candidat"}</h2>
+            <p className="text-sm text-gray-500">{user?.email || "Email non renseigné"}</p>
           </div>
 
-          <nav className="space-y-2">
+          <nav className="space-y-2 grid grid-cols-2 sm:grid-cols-3 lg:block gap-2">
             {tabs.map((t) => (
               <button
                 key={t.id}
@@ -108,77 +158,134 @@ export default function CandidateDashboard() {
       </aside>
 
       {/* Contenu principal */}
-      <main className="flex-1 p-8 overflow-y-auto">
-        {tab === "dashboard" && (
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Bienvenue, {user?.nom}</h1>
-            <p className="text-gray-600">
-              Voici un aperçu de vos activités et candidatures récentes.
-            </p>
+      <main className="flex-1 p-6 lg:p-8 overflow-y-auto space-y-6">
+        {error && (
+          <div className="flex items-start gap-3 p-4 bg-red-50 text-red-700 rounded-lg border border-red-100">
+            <span className="font-semibold">Oups :</span>
+            <span>{error}</span>
           </div>
+        )}
+
+        <div className="flex flex-wrap gap-3 justify-end">
+          <button
+            onClick={fetchData}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white border hover:bg-gray-50 text-gray-700"
+          >
+            <RefreshCw size={16} /> Actualiser
+          </button>
+        </div>
+
+        {tab === "dashboard" && (
+          <section className="space-y-4">
+            <div>
+              <h1 className="text-2xl font-bold mb-1">Bienvenue, {user?.nom_cand || "Candidat"}{" "}{user?.pren_cand || "Candidat"}</h1>
+              <p className="text-gray-600">
+                Retrouvez en un coup d&apos;œil vos informations et vos candidatures.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+              <div className="p-4 bg-white rounded-lg shadow-sm border">
+                <p className="text-sm text-gray-500">Candidatures totales</p>
+                <p className="text-2xl font-semibold text-green-700">{candidatures.length}</p>
+              </div>
+              <div className="p-4 bg-white rounded-lg shadow-sm border">
+                <p className="text-sm text-gray-500">En cours</p>
+                <p className="text-2xl font-semibold text-yellow-600">
+                 
+                  
+                  {candidatures.filter((c) => c.etat=== "EN COURS").length}
+                </p>
+              </div>
+              <div className="p-4 bg-white rounded-lg shadow-sm border">
+                <p className="text-sm text-gray-500">Acceptées</p>
+                <p className="text-2xl font-semibold text-green-600">
+                  {candidatures.filter((c) => c.etat=== "ACCEPTEE").length}
+                </p>
+              </div>
+            </div>
+          </section>
         )}
 
         {tab === "candidatures" && (
-          <div>
+          <section>
             <h2 className="text-xl font-semibold mb-4">Mes candidatures</h2>
+          
+            
             {candidatures.length === 0 ? (
               <p className="text-gray-500">Aucune candidature trouvée.</p>
             ) : (
-              <div className="grid gap-4">
-                {candidatures.map((c) => (
-                  <div
-                    key={c.id}
-                    className="p-4 bg-white rounded-lg shadow hover:shadow-md transition"
-                  >
-                    <h3 className="font-semibold text-green-700">{c.poste}</h3>
-                    <p className="text-gray-700">{c.entreprise}</p>
-                    <p className="text-sm text-gray-500 mt-1">
-                      Candidaté le {new Date(c.date_postule).toLocaleDateString()}
-                    </p>
-                    <span
-                      className={`inline-block mt-2 px-3 py-1 rounded-full text-sm ${
-                        c.statut === "ACCEPTEE"
-                          ? "bg-green-100 text-green-700"
-                          : c.statut === "EN_COURS"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "bg-gray-200 text-gray-700"
-                      }`}
-                    >
-                      {c.statut}
-                    </span>
-                  </div>
-                ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+               {candidatures.map((c) => (
+  <article
+    key={c.id_dde}
+    className="p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition"
+  >
+    <h3 className="font-semibold text-green-700">
+      {c.campagne?.description}
+    </h3>
+
+    <p className="text-gray-700">
+      {c.etat}
+    </p>
+
+    <p className="text-sm text-gray-500 mt-1">
+      Déposé le {new Date(c.date_depot).toLocaleDateString()}
+    </p>
+
+    <span
+      className={`inline-block mt-3 px-3 py-1 rounded-full text-sm ${statusClass(
+        c.etat
+      )}`}
+    >
+      {c.etat}
+    </span>
+  </article>
+))}
+
               </div>
             )}
-          </div>
+          </section>
         )}
 
         {tab === "profil" && user && (
-          <div>
+          <section>
             <h2 className="text-xl font-semibold mb-4">Mon profil</h2>
-            <div className="bg-white p-6 rounded-lg shadow space-y-4">
-              <div className="flex gap-6">
-                <img
-                  src={user.photo || "/default-avatar.png"}
+            <div className="bg-white p-6 rounded-lg shadow-sm border space-y-4">
+              <div className="flex flex-col sm:flex-row gap-6">
+                <Image
+                  src={user?.photo || "/images/default_user.png"}
                   alt="profil"
+                  width={96}
+                  height={96}
                   className="w-24 h-24 rounded-full object-cover"
                 />
-                <div>
-                  <p><strong>Nom :</strong> {user.nom}</p>
+                <div className="space-y-1">
+                  <p><strong>Nom :</strong> {user.nom_cand}</p>
                   <p><strong>Email :</strong> {user.email}</p>
-                  <p><strong>Diplôme :</strong> {user.diplome}</p>
+                  <p><strong>Téléphone :</strong> {user.telephone1}</p>
+                  <p><strong>Domaine :</strong> {user?.diplome?.domaine}</p>
+                  <p><strong>Diplôme :</strong>  {user?.diplome?.designation}</p>
+                  <p><strong>Ville :</strong> {user.lieu_nais}</p>
+                  <p><strong>Date de naissance :</strong> {user.dat_nais}</p>
+                  <p><strong>Genre :</strong> {user.genre}</p>
+                  <p><strong>Situation matrimonial :</strong> {user.sitmat}</p>
+                 
                 </div>
               </div>
-              <div className="flex gap-4">
-                <a href={user.cv} target="_blank" className="text-green-600 underline">
-                  Voir mon CV
-                </a>
-                <a href={user.diplome} target="_blank" className="text-green-600 underline">
-                  Voir mon diplôme
-                </a>
+              <div className="flex flex-wrap gap-4">
+                {user.cv && (
+                  <a href={user.cv} target="_blank" className="text-green-600 underline">
+                    Voir mon CV
+                  </a>
+                )}
+                {user.diplome && (
+                  <a href={user.diplome} target="_blank" className="text-green-600 underline">
+                    Voir mon diplôme
+                  </a>
+                )}
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {tab === "settings" && (

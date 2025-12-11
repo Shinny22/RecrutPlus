@@ -90,18 +90,10 @@ export default function ContactForm() {
   const { nom, email, message } = values;
 
   return (
-    <section id="contact" className="relative py-16 bg-gray-100">
-      <div className="absolute p-35 rounded-b-xl rounded-r-full bg-green-800/60 mt-50" />
-      <div
-        className="absolute inset-0 bg-bottom bg-no-repeat bg-contain opacity-2 pointer-events-none"
-        style={{
-          backgroundImage: "url('/images/cfi_image.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+    <section id="contact" className="relative py-16 bg-gray-100 overflow-hidden">
+      <div className="absolute inset-0 bg-bottom bg-no-repeat bg-cover opacity-20 pointer-events-none" style={{ backgroundImage: "url('/images/cfi_image.jpg')" }} />
 
-      <div className="max-w-6xl mx-auto px-4 flex flex-col lg:flex-row items-start gap-12">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 flex flex-col lg:flex-row items-start gap-12">
         <div className="lg:w-1/2 text-center lg:text-left">
           <h2 className="text-3xl sm:text-4xl font-bold text-green-800 mb-4">
             Contactez-nous
@@ -120,7 +112,7 @@ export default function ContactForm() {
           </ul>
         </div>
 
-        <div className="lg:w-1/2 w-full bg-white rounded-2xl shadow-lg p-6 sm:p-10">
+        <div className="lg:w-1/2 w-full bg-white/90 backdrop-blur rounded-2xl p-6 sm:p-10 shadow-lg">
           {!hasSubmitted ? (
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <FormField
@@ -133,7 +125,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     placeholder="Votre nom"
                     required
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition"
+                    className="w-full pl-10 pr-4 py-2 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition"
                   />
                 }
               />
@@ -148,7 +140,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     placeholder="votre@email.com"
                     required
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition"
+                    className="w-full pl-10 pr-4 py-2 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition"
                   />
                 }
               />
@@ -163,7 +155,7 @@ export default function ContactForm() {
                     placeholder="Votre message..."
                     rows={5}
                     required
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition resize-none"
+                    className="w-full pl-10 pr-4 py-2 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition resize-none"
                   />
                 }
               />

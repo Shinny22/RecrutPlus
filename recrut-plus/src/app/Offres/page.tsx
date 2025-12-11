@@ -67,7 +67,7 @@ export default function OffresPage() {
           <PostulerForm campagnes={[selectedCampagne]} />
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-3 lg:grid-cols-2 items-center justify-center ">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center ">
          {offres.length === 0 ? (
   <div className="flex flex-col items-center justify-center py-20 ">
       <img
