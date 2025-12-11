@@ -12,7 +12,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      "upload.wikimedia.org",
+      "upload.wikimedia.org","127.0.0.1","localhost",
       // tu peux ajouter d'autres domaines si besoin
     ],
   },

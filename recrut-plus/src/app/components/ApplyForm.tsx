@@ -1,10 +1,22 @@
-
+//Version2
 
 "use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import {
+  Button,
+} from "@/components/ui/button";
+import {
+  Input,
+} from "@/components/ui/input";
+import {
+  Label,
+} from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 interface FormValues {
   nom_cand: string;
@@ -24,9 +36,11 @@ interface FormValues {
 
 const PostulerForm = ({ campagnes }: { campagnes: any[] }) => {
   const [step, setStep] = useState(1);
-  const { register, handleSubmit, watch } = useForm<FormValues>();
+  const { register, handleSubmit } = useForm<FormValues>();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
+    setLoading(true);
     try {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
@@ -40,136 +54,158 @@ const PostulerForm = ({ campagnes }: { campagnes: any[] }) => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("Demande envoyée avec succès !");
+      setStep(1);
     } catch (err) {
       console.error(err);
       alert("Erreur lors de l'envoi de la demande.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-6"
-    >
-      {/* Step Indicator */}
-      <div className="flex items-center justify-between mb-6">
-        <div className={`flex-1 h-2 rounded-full ${step >= 1 ? "bg-orange-500" : "bg-gray-300"} transition`} />
-        <div className="flex-1 h-2 rounded-full mx-2 {step >= 2 ? 'bg-orange-500' : 'bg-gray-300'} transition" />
-      </div>
-
-      {step === 1 && (
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Informations personnelles</h2>
-          
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Nom</label>
-            <input {...register("nom_cand")} placeholder="Votre nom" className="input"/>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Prénom</label>
-            <input {...register("pren_cand")} placeholder="Votre prénom" className="input"/>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Genre</label>
-            <select {...register("genre")} className="input">
-              <option value="">-- Sélectionnez votre genre --</option>
-              <option value="M">Masculin</option>
-              <option value="F">Féminin</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Date de naissance</label>
-            <input type="date" {...register("dat_nais")} className="input"/>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Lieu de naissance</label>
-            <input {...register("lieu_nais")} placeholder="Ville / Pays" className="input"/>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Téléphone principal</label>
-            <input {...register("telephone1")} placeholder="+242 ..." className="input"/>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Téléphone secondaire (facultatif)</label>
-            <input {...register("telephone2")} placeholder="+242 ..." className="input"/>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Email</label>
-            <input type="email" {...register("email")} placeholder="exemple@mail.com" className="input"/>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Photo (format JPG/PNG)</label>
-            <input type="file" {...register("photo")} className="input"/>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setStep(2)}
-            className="w-full py-2 px-4 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition"
-          >
-            Suivant
-          </button>
+    <Card className="max-w-3xl mx-auto p-8 shadow-lg rounded-2xl bg-white">
+      <CardContent>
+        {/* Step Indicator */}
+        <div className="flex justify-between mb-8">
+          {[1, 2].map((s) => (
+            <motion.div
+              key={s}
+              className={`flex-1 h-2 rounded-full ${step >= s ? "bg-green-600" : "bg-gray-300"} transition`}
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+            />
+          ))}
         </div>
-      )}
 
-      {step === 2 && (
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Diplôme et campagne</h2>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Diplôme obtenu</label>
-            <input type="file" {...register("diplome_fichier")} placeholder="Ex : Licence en Informatique" className="input"/>
-            {/* <input type="file" {...register("photo")} className="input"/> */}
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Année d'obtention</label>
-            <input type="number" {...register("anne_obt_dip")} placeholder="Ex : 2023" className="input"/>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">Campagne</label>
-            <select {...register("campagne")} className="input">
-              <option value="">-- Choisir une campagne --</option>
-              {campagnes.map(c => (
-                <option key={c.cod_anne} value={c.cod_anne}>
-                  {c.description}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700">CV (format PDF)</label>
-            <input type="file" {...register("cv")} className="input"/>
-          </div>
-
-          <div className="flex justify-between mt-4">
-            <button
-              type="button"
-              onClick={() => setStep(1)}
-              className="px-4 py-2 bg-gray-200 font-semibold rounded-lg hover:bg-gray-300 transition"
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {step === 1 && (
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-4"
             >
-              Précédent
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition"
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4">Informations personnelles</h2>
+
+              <div className="space-y-4">
+                <div>
+                  <Label>Nom</Label>
+                  <Input {...register("nom_cand")} placeholder="Votre nom" />
+                </div>
+
+                <div>
+                  <Label>Prénom</Label>
+                  <Input {...register("pren_cand")} placeholder="Votre prénom" />
+                </div>
+
+                <div>
+                  <Label>Genre</Label>
+                  <Select {...register("genre")}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="-- Sélectionnez votre genre --" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="M">Masculin</SelectItem>
+                      <SelectItem value="F">Féminin</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label>Date de naissance</Label>
+                  <Input type="date" {...register("dat_nais")} />
+                </div>
+
+                <div>
+                  <Label>Lieu de naissance</Label>
+                  <Input {...register("lieu_nais")} placeholder="Ville / Pays" />
+                </div>
+
+                <div>
+                  <Label>Téléphone principal</Label>
+                  <Input {...register("telephone1")} placeholder="+242 ..." />
+                </div>
+
+                <div>
+                  <Label>Téléphone secondaire (facultatif)</Label>
+                  <Input {...register("telephone2")} placeholder="+242 ..." />
+                </div>
+
+                <div>
+                  <Label>Email</Label>
+                  <Input type="email" {...register("email")} placeholder="exemple@mail.com" />
+                </div>
+
+                <div>
+                  <Label>Photo (JPG/PNG)</Label>
+                  <Input type="file" {...register("photo")} />
+                </div>
+
+                <Button type="button" onClick={() => setStep(2)} className="w-full bg-green-600 hover:bg-green-700 text-white">
+                  Suivant
+                </Button>
+              </div>
+            </motion.div>
+          )}
+
+          {step === 2 && (
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-4"
             >
-              Postuler
-            </button>
-          </div>
-        </div>
-      )}
-    </form>
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4">Diplôme et campagne</h2>
+
+              <div>
+                <Label>Diplôme obtenu</Label>
+                <Input type="file" {...register("diplome_fichier")} />
+              </div>
+
+              <div>
+                <Label>Année d'obtention</Label>
+                <Input type="number" {...register("anne_obt_dip")} placeholder="Ex : 2023" />
+              </div>
+
+              <div>
+                <Label>Campagne</Label>
+                <Select {...register("campagne")}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="-- Choisir une campagne --" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {campagnes.map((c) => (
+                      <SelectItem key={c.cod_anne} value={c.cod_anne}>
+                        {c.description}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label>CV (PDF)</Label>
+                <Input type="file" {...register("cv")} />
+              </div>
+
+              <div className="flex justify-between mt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep(1)}
+                >
+                  Précédent
+                </Button>
+                <Button type="submit" disabled={loading} className="bg-green-600 hover:bg-green-700 text-white">
+                  {loading ? "Envoi..." : "Postuler"}
+                </Button>
+              </div>
+            </motion.div>
+          )}
+        </form>
+      </CardContent>
+    </Card>
   );
 };
 
