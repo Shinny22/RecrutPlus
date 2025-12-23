@@ -110,14 +110,14 @@ export default function Navbar() {
                 <Link href="/dashboard" className="nav-link">Dashboard</Link>
                 <Link href="/mes-demandes" className="nav-link">Mes candidatures</Link>
                 <Link href="/offres" className="nav-link">Offres</Link>
-                <Link href="/Consulter" className="nav-link">Postuler</Link>
+                <Link href="/A propos de nous" className="nav-link">A propos de nous</Link>
                 <Link href="/contact" className="nav-link">Contact</Link>
               </>
             ) : (
               <>
-                <Link href="/Offres" className="nav-link text-lg">Offres</Link>
-                <Link href="/Consulter" className="nav-link text-lg">Postuler</Link>
-                <Link href="#contact" className="nav-link text-lg">Contact</Link>
+                <Link href="#about" className="nav-link text-lg">A propos de nous</Link>
+                <Link href="/Offres" className="nav-link text-lg">Nos offres</Link>
+                <Link href="#contact" className="nav-link text-lg">Nous nontacter</Link>
               </>
             )}
           </div>
@@ -210,7 +210,7 @@ export default function Navbar() {
                 <Link href="/dashboard" className="mobile-link" onClick={handleNavClick}>Dashboard</Link>
                 <Link href="/mes-demandes" className="mobile-link" onClick={handleNavClick}>Mes candidatures</Link>
                 <Link href="/offres" className="mobile-link" onClick={handleNavClick}>Offres</Link>
-                <Link href="/Consulter" className="mobile-link" onClick={handleNavClick}>Postuler</Link>
+                <Link href="/about" className="mobile-link" onClick={handleNavClick}>A propos de nous</Link>
                 <Link href="/profile" className="mobile-link" onClick={handleNavClick}>Mon profil</Link>
                 <button
                   onClick={handleLogout}
@@ -221,8 +221,8 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/Offres" className="mobile-link" onClick={handleNavClick}>Offres</Link>
-                <Link href="/Consulter" className="mobile-link" onClick={handleNavClick}>Postuler</Link>
+                <Link href="#about" className="mobile-link" onClick={handleNavClick}>A propos de nous</Link>
+                <Link href="/Offres" className="mobile-link" onClick={handleNavClick}>Nos Offres</Link>
                 <Link href="#contact" className="mobile-link" onClick={handleNavClick}>Contact</Link>
                 <button
                   onClick={() => {

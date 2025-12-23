@@ -50,9 +50,7 @@ const PostulerForm = ({ campagnes }: { campagnes: any[] }) => {
           formData.append(key, value as any);
         }
       });
-      await axios.post("http://localhost:8000/postuler/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axios.post("http://localhost:8000/postuler/", formData, );
       alert("Demande envoyée avec succès !");
       setStep(1);
     } catch (err) {

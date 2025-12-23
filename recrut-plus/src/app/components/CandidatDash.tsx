@@ -36,6 +36,8 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import OffresList from "../components/OffreList";
+import LogoutButton from "../components/Logoutbtn";
+
 
 /* ----------------------------
    Types
@@ -254,16 +256,7 @@ export default function CandidateDashboardPremium() {
                   <div className="text-xs text-slate-500">{user?.email ?? "—"}</div>
                 </div>
                 <div className="hidden sm:block pl-2 border-l border-slate-100 ml-2">
-                  <button
-                    onClick={() => {
-                      localStorage.removeItem("token");
-                      window.location.href = "/login";
-                    }}
-                    className="text-xs text-red-600 px-2"
-                    title="Se déconnecter"
-                  >
-                    <LogOut size={14} />
-                  </button>
+                  <LogoutButton />
                 </div>
               </div>
             </div>
@@ -310,9 +303,10 @@ export default function CandidateDashboardPremium() {
                     <Button variant="ghost" className="w-full" onClick={() => setTab("profil")}>
                       <Edit3 size={14} /> Éditer profil
                     </Button>
-                    <Button variant="destructive" className="w-full" onClick={() => { localStorage.removeItem("token"); window.location.href = "/login"; }}>
+                    <Button variant="destructive" className="w-full" onClick={() => { localStorage.removeItem("token"); window.location.href = "/Login"; }}>
                       <LogOut size={14} /> Déconnexion
                     </Button>
+                      {/* <LogoutButton /> */}
                   </div>
                 </div>
               </CardContent>

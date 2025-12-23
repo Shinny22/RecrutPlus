@@ -89,7 +89,7 @@ export default function RegisterFormWizard() {
       const data = await response.json();
       if (response.ok) {
         alert("Compte créé avec succès !");
-        router.push("/LoginForm");
+        router.push("/Login");
       } else {
         alert(data.error || "Erreur lors de la création du compte");
       }
@@ -511,7 +511,7 @@ export default function RegisterFormWizard() {
 
           <p className="text-center text-gray-600 mt-6">
             Déjà un compte ?{" "}
-            <a href="/LoginForm" className="text-[#16A34A] font-semibold hover:underline">
+            <a href="/Login" className="text-[#16A34A] font-semibold hover:underline">
               Se connecter
             </a>
           </p>
