@@ -50,7 +50,7 @@ const PostulerForm = ({ campagnes }: { campagnes: any[] }) => {
           formData.append(key, value as any);
         }
       });
-      await axios.post("http://localhost:8000/postuler/", formData, );
+      await axios.post("https://recrutplus-back.onrender.com/postuler/", formData, );
       alert("Demande envoyée avec succès !");
       setStep(1);
     } catch (err) {

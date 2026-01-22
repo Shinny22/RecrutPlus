@@ -81,7 +81,7 @@ export default function RegisterFormWizard() {
         }
       });
 
-      const response = await fetch("http://localhost:8000/register/", {
+      const response = await fetch("https://recrutplus-back.onrender.com/register/", {
         method: "POST",
         body: formData,
       });

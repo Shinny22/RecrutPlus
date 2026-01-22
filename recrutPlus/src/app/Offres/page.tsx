@@ -24,7 +24,7 @@ export default function OffresPage() {
   useEffect(() => {
     async function fetchOffres() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/campagnes/");
+        const res = await fetch("https://recrutplus-back.onrender.com/api/campagnes/");
         if (!res.ok) throw new Error("Erreur lors du fetch des offres");
         const data = await res.json();
         setOffres(data);

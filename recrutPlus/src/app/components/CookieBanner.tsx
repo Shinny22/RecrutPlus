@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Cookies from "../../../node_modules/@types/js-cookie";
+import Cookies from "js-cookie";
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);

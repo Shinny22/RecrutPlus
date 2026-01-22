@@ -100,7 +100,7 @@ export default function CandidateDashboardPremium() {
   const [error, setError] = useState<string | null>(null);
 
   // CHANGE THIS to your API base
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000";
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE || "https://recrutplus-back.onrender.com";
 
   const fetchData = useCallback(async () => {
     setError(null);
@@ -246,7 +246,7 @@ export default function CandidateDashboardPremium() {
               <div className="flex items-center gap-2 bg-white border rounded-lg p-1">
                 <Avatar className="w-10 h-10">
                   {user?.photo ? (
-                    <AvatarImage src={`http://127.0.0.1:8000/${user.photo}`} alt={`${user.nom_cand} ${user.pren_cand}`} />
+                    <AvatarImage src={`https://recrutplus-back.onrender.com${user.photo}`} alt={`${user.nom_cand} ${user.pren_cand}`} />
                   ) : (
                     <AvatarFallback>{(user?.nom_cand?.[0] ?? "C") + (user?.pren_cand?.[0] ?? "")}</AvatarFallback>
                   )}
@@ -271,7 +271,7 @@ export default function CandidateDashboardPremium() {
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Avatar className="w-15 h-15">
-                      {user?.photo ? <AvatarImage src={`http://127.0.0.1:8000/${user.photo}`} alt="avatar" /> : <AvatarFallback>{(user?.nom_cand?.[0] ?? "C")}</AvatarFallback>}
+                      {user?.photo ? <AvatarImage src={`https://recrutplus-back.onrender.com${user.photo}`} alt="avatar" /> : <AvatarFallback>{(user?.nom_cand?.[0] ?? "C")}</AvatarFallback>}
                     </Avatar>
                     <div>
                       <div className="text-sm font-semibold">{user?.nom_cand} {user?.pren_cand}</div>
@@ -536,7 +536,7 @@ export default function CandidateDashboardPremium() {
                 <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="flex flex-col items-center gap-4">
                     <div className="relative w-30 h-30 rounded-full overflow-hidden ring-2 ring-emerald-100">
-                      <Image src={`http://127.0.0.1:8000/${user.photo}` ?? "/images/default_user.png"} alt="avatar" fill className="object-cover" />
+                      <Image src={`https://recrutplus-back.onrender.com${user.photo}` ?? "/images/default_user.png"} alt="avatar" fill className="object-cover" />
                     </div>
                     <div className="text-center">
                       <div className="font-semibold">{user.nom_cand} {user.pren_cand}</div>
