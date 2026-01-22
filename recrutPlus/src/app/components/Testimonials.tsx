@@ -1,0 +1,258 @@
+
+
+// // "use client";
+
+// // import { Card, CardContent } from "@/components/ui/card";
+// // import { motion } from "framer-motion";
+
+// // export default function Testimonials() {
+// //   const testimonials = [
+// //     {
+// //       name: "Jean M.",
+// //       role: "Développeur embauché",
+// //       message: "Grâce à CFI-Recrute, j’ai trouvé un emploi en moins d’un mois ! Une plateforme fluide et efficace.",
+// //     },
+// //     {
+// //       name: "Aline K.",
+// //       role: "Recruteuse RH",
+// //       message: "Un vivier de talents exceptionnel. J’ai pu recruter plusieurs profils qualifiés sans perte de temps.",
+// //     },
+// //     {
+// //       name: "Patrick L.",
+// //       role: "Étudiant en informatique",
+// //       message: "CFI-CIRAS m’a permis de découvrir des opportunités incroyables et de perfectionner mes compétences techniques.",
+// //     },
+// //   ];
+
+// //   return (
+// //     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+// //       <div className="max-w-6xl mx-auto px-6 text-center">
+// //         {/* Titre section */}
+// //         <motion.h2
+// //           initial={{ opacity: 0, y: -20 }}
+// //           whileInView={{ opacity: 1, y: 0 }}
+// //           transition={{ duration: 0.6 }}
+// //           viewport={{ once: true }}
+// //           className="text-4xl font-bold mb-12 text-gray-800"
+// //         >
+// //           Ce qu’ils disent du <span className="text-green-600">CFI-CIRAS</span>
+// //         </motion.h2>
+
+// //         {/* Grille de témoignages */}
+// //         <div className="grid md:grid-cols-3 lg:grid-cols-2 gap-8">
+// //           {testimonials.map((t, i) => (
+// //             <motion.div
+// //               key={i}
+// //               initial={{ opacity: 0, y: 30 }}
+// //               whileInView={{ opacity: 1, y: 0 }}
+// //               transition={{ duration: 0.7, delay: i * 0.2 }}
+// //               viewport={{ once: true }}
+// //             >
+// //               <Card className="p-6 rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 bg-white">
+// //                 <CardContent>
+// //                   <p className="italic text-gray-600 mb-6 text-lg leading-relaxed">
+// //                     “{t.message}”
+// //                   </p>
+// //                   <div className="flex flex-col items-center">
+// //                     <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold mb-2">
+// //                       {t.name[0]}
+// //                     </div>
+// //                     <h4 className="font-semibold text-green-800">{t.name}</h4>
+// //                     <span className="text-sm text-gray-500">{t.role}</span>
+// //                   </div>
+// //                 </CardContent>
+// //               </Card>
+// //             </motion.div>
+// //           ))}
+// //         </div>
+
+// //         {/* Animation subtile de fond */}
+// //         <motion.div
+// //           className="absolute inset-0 -z-10 blur-3xl opacity-10"
+// //           animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+// //           transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+// //           style={{
+// //             backgroundImage:
+// //               "radial-gradient(circle at 50% 50%, #3b82f6, #0ea5e9, #2563eb)",
+// //           }}
+// //         />
+// //       </div>
+// //     </section>
+// //   );
+// // }
+
+
+
+// "use client";
+
+// import { Card, CardContent } from "@/components/ui/card";
+// import { motion } from "framer-motion";
+
+// export default function Testimonials() {
+//   const testimonials = [
+//     {
+//       name: "Jean M.",
+//       role: "Développeur embauché",
+//       message:
+//         "Grâce à CFI-Recrute, j’ai trouvé un emploi en moins d’un mois ! Une plateforme fluide et efficace.",
+//     },
+//     {
+//       name: "Aline K.",
+//       role: "Recruteuse RH",
+//       message:
+//         "Un vivier de talents exceptionnel. J’ai pu recruter plusieurs profils qualifiés sans perte de temps.",
+//     },
+//     {
+//       name: "Patrick L.",
+//       role: "Étudiant en informatique",
+//       message:
+//         "CFI-CIRAS m’a permis de découvrir des opportunités incroyables et de perfectionner mes compétences techniques.",
+//     },
+//     {
+//       name: "Sandra B.",
+//       role: "Designer UI/UX",
+//       message:
+//         "Une belle expérience, le site est simple à utiliser et m’a permis de décrocher plusieurs entretiens rapidement.",
+//     },
+//     {
+//       name: "Yann D.",
+//       role: "Chef de projet IT",
+//       message:
+//         "Je recommande CFI-Recrute à tous les professionnels du numérique souhaitant évoluer dans leur carrière.",
+//     },
+//   ];
+
+//   // Duplique les témoignages pour un défilement infini
+//   const infiniteTestimonials = [...testimonials, ...testimonials];
+
+//   return (
+//     <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+//       <div className="max-w-6xl mx-auto px-6 text-center">
+//         {/* Titre */}
+//         <motion.h2
+//           initial={{ opacity: 0, y: -20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 0.6 }}
+//           viewport={{ once: true }}
+//           className="text-4xl font-bold mb-12 text-gray-800"
+//         >
+//           Ce qu’ils disent du <span className="text-green-600">CFI-CIRAS</span>
+//         </motion.h2>
+
+//         {/* Carrousel auto-scroll */}
+//         <div className="overflow-hidden">
+//           <motion.div
+//             className="flex gap-6"
+//             animate={{ x: ["0%", "-50%"] }}
+//             transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+//           >
+//             {infiniteTestimonials.map((t, i) => (
+//               <Card
+//                 key={i}
+//                 className="min-w-[300px] md:min-w-[350px] p-6 rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 bg-white flex-shrink-0"
+//               >
+//                 <CardContent>
+//                   <p className="italic text-gray-600 mb-6 text-lg leading-relaxed">
+//                     “{t.message}”
+//                   </p>
+//                   <div className="flex flex-col items-center">
+//                     <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold mb-2">
+//                       {t.name[0]}
+//                     </div>
+//                     <h4 className="font-semibold text-green-800">{t.name}</h4>
+//                     <span className="text-sm text-gray-500">{t.role}</span>
+//                   </div>
+//                 </CardContent>
+//               </Card>
+//             ))}
+//           </motion.div>
+//         </div>
+
+//         {/* Effet lumineux subtil */}
+//         <motion.div
+//           className="absolute inset-0 -z-10 blur-3xl opacity-10"
+//           animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+//           transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+//           style={{
+//             backgroundImage:
+//               "radial-gradient(circle at 50% 50%, #3b82f6, #0ea5e9, #2563eb)",
+//           }}
+//         />
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
+"use client";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+
+export default function Testimonials() {
+  const testimonials = [
+    { name: "Jean M.", role: "Développeur embauché", message: "Grâce à CFI-Recrute, j’ai trouvé un emploi en moins d’un mois ! Une plateforme fluide et efficace." },
+    { name: "Aline K.", role: "Recruteuse RH", message: "Un vivier de talents exceptionnel. J’ai pu recruter plusieurs profils qualifiés sans perte de temps." },
+    { name: "Patrick L.", role: "Étudiant en informatique", message: "CFI-CIRAS m’a permis de découvrir des opportunités incroyables et de perfectionner mes compétences techniques." },
+    { name: "Sandra B.", role: "Designer UI/UX", message: "Une belle expérience, le site est simple à utiliser et m’a permis de décrocher plusieurs entretiens rapidement." },
+    { name: "Yann D.", role: "Chef de projet IT", message: "Je recommande CFI-Recrute à tous les professionnels du numérique souhaitant évoluer dans leur carrière." },
+  ];
+
+  const infiniteTestimonials = [...testimonials, ...testimonials];
+
+  return (
+    <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 text-center">
+        {/* Titre */}
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-4xl font-bold mb-12 text-gray-800"
+        >
+          Ce qu’ils disent du <span className="text-green-600">CFI-CIRAS</span>
+        </motion.h2>
+
+        {/* Carousel horizontal responsive */}
+        <div className="overflow-x-hidden">
+          <motion.div
+            className="flex gap-6"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          >
+            {infiniteTestimonials.map((t, i) => (
+              <Card
+                key={i}
+                className="min-w-[280px] sm:min-w-[300px] md:min-w-[350px] p-6 rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 bg-white flex-shrink-0"
+              >
+                <CardContent>
+                  <p className="italic text-gray-600 mb-6 text-base sm:text-lg leading-relaxed">
+                    “{t.message}”
+                  </p>
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold mb-2">
+                      {t.name[0]}
+                    </div>
+                    <h4 className="font-semibold text-green-800 text-sm sm:text-base">{t.name}</h4>
+                    <span className="text-xs sm:text-sm text-gray-500">{t.role}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Effet lumineux subtil */}
+        <motion.div
+          className="absolute inset-0 -z-10 blur-3xl opacity-10"
+          animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+          transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+          style={{ backgroundImage: "radial-gradient(circle at 50% 50%, #3b82f6, #0ea5e9, #2563eb)" }}
+        />
+      </div>
+      <div className="absolute p-35 rounded-t-xl ml-250 rounded-l-full bg-green-800/45"></div>
+    </section>
+  );
+}
