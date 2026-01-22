@@ -131,6 +131,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -170,9 +171,11 @@ export default function OffresList() {
   if (loading)
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <img
+        <Image
           src="/images/loading.gif"
           alt="Chargement..."
+          width={96}
+          height={96}
           className="w-24 h-24 mb-4"
         />
         <p className="text-lg text-gray-500 text-center">Chargement des offres... Veillez patienter</p>
@@ -198,9 +201,11 @@ export default function OffresList() {
         </div>
       ) : offres.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20">
-          <img
+          <Image
             src="/images/no-data.png"
             alt="Aucune campagne"
+            width={256}
+            height={256}
             className="w-64 h-64 mb-4"
           />
           <p className="text-gray-600 text-xl text-center">
