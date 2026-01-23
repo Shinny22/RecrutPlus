@@ -536,7 +536,7 @@ export default function CandidateDashboardPremium() {
                 <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="flex flex-col items-center gap-4">
                     <div className="relative w-30 h-30 rounded-full overflow-hidden ring-2 ring-emerald-100">
-                      <Image src={`https://recrutplus-back.onrender.com${user.photo}` ?? "/images/default_user.png"} alt="avatar" fill className="object-cover" />
+                      <Image src={`https://recrutplus-back.onrender.com${user.photo}` ? "/images/default_user.png"} alt="avatar" fill className="object-cover" />
                     </div>
                     <div className="text-center">
                       <div className="font-semibold">{user.nom_cand} {user.pren_cand}</div>

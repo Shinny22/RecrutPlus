@@ -13,7 +13,8 @@ export default function CookieBanner() {
 
   const handleConsent = async (choice: "accept" | "reject") => {
     try {
-      await fetch("http://127.0.0.1:8000/set-cookie-consent/", {
+      const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://recrutplus-back.onrender.com";
+      await fetch(`${API_BASE}/set-cookie-consent/`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `consent=${choice}`,

@@ -433,7 +433,7 @@ export default function AboutSection() {
         {/* Équipe */}
         <div className="mb-12 relative">
           <h3 className="text-3xl font-semibold text-center mb-8 text-gray-900">
-            Notre Équipe <span className="text-green-600">d'Experts</span>
+            Notre Équipe <span className="text-green-600">d&apos;Experts</span>
           </h3>
           <div ref={teamSliderRef} className="keen-slider">
             {teamMembers.map((member) => (

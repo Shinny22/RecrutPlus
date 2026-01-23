@@ -17,7 +17,8 @@ const INITIAL_VALUES: ContactFormValues = {
   message: "",
 };
 
-const CONTACT_MESSAGE_ENDPOINT = "http://127.0.0.1:8000/api/contact-message/";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://recrutplus-back.onrender.com";
+const CONTACT_MESSAGE_ENDPOINT = `${API_BASE}/api/contact-message/`;
 
 export default function ContactForm() {
   const [values, setValues] = useState<ContactFormValues>(INITIAL_VALUES);

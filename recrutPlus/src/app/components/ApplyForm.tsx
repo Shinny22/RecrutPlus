@@ -34,7 +34,15 @@ interface FormValues {
   campagne: string;
 }
 
-const PostulerForm = ({ campagnes }: { campagnes: any[] }) => {
+type Campagne = {
+  cod_anne: string;
+  description: string;
+  dat_debut: string;
+  dat_fin: string;
+  etat: string;
+};
+
+const PostulerForm = ({ campagnes }: { campagnes: Campagne[] }) => {
   const [step, setStep] = useState(1);
   const { register, handleSubmit } = useForm<FormValues>();
   const [loading, setLoading] = useState(false);
