@@ -4,9 +4,8 @@
 
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   User,
   FileText,
@@ -15,9 +14,9 @@ import {
   Briefcase,
   RefreshCw,
   CheckCircle,
-  XCircle,
+
   Clock,
-  ChevronLeft,
+ 
   BellRing,
   Edit3,
   Download,
@@ -60,7 +59,9 @@ interface Candidat {
   pren_cand?: string;
   email?: string;
   photo?: string;
-  diplome?: any;
+  diplome?: {
+    designation?: string;
+  } | string | null;
   cv?: string;
   telephone1?: string;
   lieu_nais?: string;
@@ -152,7 +153,7 @@ export default function CandidateDashboardPremium() {
 
 
   /* -------------- UI pieces -------------- */
-  const SidebarItem: React.FC<{ id: typeof tab; label: string; icon: JSX.Element; badge?: number }> = ({ id, label, icon, badge }) => {
+  const SidebarItem: React.FC<{ id: typeof tab; label: string; icon: ReactNode; badge?: number }> = ({ id, label, icon, badge }) => {
     const active = tab === id;
     return (
       <motion.button
@@ -262,6 +263,12 @@ export default function CandidateDashboardPremium() {
             </div>
           </div>
         </header>
+
+        {error && (
+          <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Sidebar */}
@@ -536,7 +543,12 @@ export default function CandidateDashboardPremium() {
                 <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="flex flex-col items-center gap-4">
                     <div className="relative w-30 h-30 rounded-full overflow-hidden ring-2 ring-emerald-100">
-                      <Image src={`https://recrutplus-back.onrender.com${user.photo}` ? "/images/default_user.png"} alt="avatar" fill className="object-cover" />
+                        <Image 
+    src={user.photo ? `https://recrutplus-back.onrender.com${user.photo}` : "/images/default_user.png"} 
+    alt="avatar" 
+    fill 
+    className="object-cover" 
+  />
                     </div>
                     <div className="text-center">
                       <div className="font-semibold">{user.nom_cand} {user.pren_cand}</div>
@@ -576,7 +588,11 @@ export default function CandidateDashboardPremium() {
 
                     <div className="p-4 bg-slate-50 rounded-lg">
                       <div className="text-xs text-slate-500">Diplôme</div>
-                      <div className="font-medium">{user?.diplome?.designation ?? user?.diplome ?? "—"}</div>
+                      <div className="font-medium">
+                        {typeof user?.diplome === "string"
+                          ? user.diplome
+                          : user?.diplome?.designation ?? "—"}
+                      </div>
                     </div>
                   </div>
 
@@ -613,7 +629,7 @@ export default function CandidateDashboardPremium() {
                       <div className="flex items-center justify-between">
                         <div>
                           <div className="text-sm font-medium">Langue</div>
-                          <div className="text-xs text-slate-500">Choisir la langue de l'interface</div>
+                          <div className="text-xs text-slate-500">Choisir la langue de l&apos;interface</div>
                         </div>
                         <div>
                           <select className="bg-white border px-3 py-1 rounded-md text-sm">

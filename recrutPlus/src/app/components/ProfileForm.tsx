@@ -1,6 +1,20 @@
 "use client";
 
-export default function ProfileForm({ user }) {
+type ProfileUser = {
+  nom_cand?: string;
+  pren_cand?: string;
+  email?: string;
+  telephone1?: string;
+  lieu_nais?: string;
+  dat_nais?: string;
+  date_nais?: string;
+};
+
+type ProfileFormProps = {
+  user?: ProfileUser | null;
+};
+
+export default function ProfileForm({ user }: ProfileFormProps) {
   return (
     <div className="bg-white rounded-2xl shadow p-6">
       <h2 className="text-lg font-semibold text-gray-800 mb-4">
@@ -18,7 +32,11 @@ export default function ProfileForm({ user }) {
 
         <input className="input" defaultValue={user?.lieu_nais} placeholder="Ville" />
 
-        <input className="input" type="date" defaultValue={user?.date_nais} />
+        <input
+          className="input"
+          type="date"
+          defaultValue={user?.dat_nais ?? user?.date_nais}
+        />
 
         <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-all">
           Enregistrer

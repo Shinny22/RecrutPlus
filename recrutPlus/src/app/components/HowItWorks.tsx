@@ -1,191 +1,81 @@
-
 "use client";
-// /components/HowItWorks.tsx
-import { Search, FileText, CheckCircle } from "lucide-react";
 
+import Link from "next/link";
+import { CheckCircle2, FileText, Search } from "lucide-react";
+
+const steps = [
+  {
+    icon: Search,
+    title: "Explorez les offres",
+    description: "Filtrez les campagnes selon votre profil et vos objectifs.",
+  },
+  {
+    icon: FileText,
+    title: "Déposez votre dossier",
+    description: "Envoyez CV, diplôme et informations en quelques étapes.",
+  },
+  {
+    icon: CheckCircle2,
+    title: "Suivez votre statut",
+    description: "Consultez l’avancement de vos candidatures en temps réel.",
+  },
+];
 
 export default function HowItWorks() {
   return (
-    <section className="relative py-20 bg-gray-50 overflow-hidden">
-      {/* Image de fond subtile */}
-      <div
-        className="absolute inset-0 bg-center bg-no-repeat bg-contain opacity-6 pointer-events-none"
-        // style={{ backgroundImage: "url('/images/logo cfi.png')" }}
-        style={{
-          backgroundImage: "url('/images/cfi_image.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></div>
+    <section className="relative">
+      <div className="section-shell">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div>
+            <span className="section-kicker">Parcours candidat</span>
+            <h2 className="section-title">Comment rejoindre le CFI-CIRAS</h2>
+            <p className="section-subtitle mx-0 mt-4">
+              Le processus a été simplifié pour aller droit au but: comprendre les offres,
+              postuler rapidement et garder une vision claire de votre dossier.
+            </p>
 
-      <div className="absolute p-35 rounded-t-full  lg:ml-247 mt-70 bg-green-800/45 md: ml-300 mt-60"></div>
-      {/* <div className="absolute p-35 rounded-t-full  ml-250  bg-green-800/25"></div> */}
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* CÔTÉ GAUCHE - Étapes */}
-        <div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Comment rejoindre le CFI-CIRAS? <br />
-            <span className="text-green-600">Trouvez un emploi rapidement</span>
-          </h2>
-          <ul className="space-y-6">
-            {[
-              {
-                icon: <Search className="text-orange-600" size={28} />,
-                title: "Rechercher un emploi",
-                desc: "Trouvez l’offre adaptée à vos compétences.",
-              },
-              {
-                icon: <FileText className="text-orange-600" size={28} />,
-                title: "Postuler à une offre",
-                desc: "Postulez en ligne facilement avec votre CV et votre diplôme.",
-              },
-              {
-                icon: <CheckCircle className="text-orange-600" size={28} />,
-                title: "Être recruté",
-                desc: "Démarrez votre carrière avec le CFI-CIRAS.",
-              },
-            ].map((step, i) => (
-              <li key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <div className="bg-green-100 p-4 rounded-full flex-shrink-0">{step.icon}</div>
-                <div>
-                  <h3 className="text-xl font-semibold">{step.title}</h3>
-                  <p className="text-gray-600">{step.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+            <ul className="mt-9 space-y-4">
+              {steps.map((step) => {
+                const Icon = step.icon;
+                return (
+                  <li key={step.title} className="surface-card-soft flex gap-4">
+                    <div className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                      <Icon size={20} />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-slate-900">{step.title}</h3>
+                      <p className="mt-1 text-sm text-slate-600 sm:text-base">{step.description}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
-        {/* CÔTÉ DROIT - Carte */}
-        <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md mx-auto md:mx-0">
-          <h3 className="text-2xl text-center font-bold mb-6">Trouvez votre carrière</h3>
-          <form className="space-y-4">
-            <input
-              type="text"
-              placeholder="Intitulé du poste ou mot-clé"
-              className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
-            />
-            <button
-              type="button"
-              // onClick={() => window.location.href = "/Offres"}
-              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700  transition"
-            >
-              Rechercher un emploi
-            </button>
-          </form>
+          <div className="surface-card relative overflow-hidden">
+            <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-emerald-100/80 blur-2xl" />
+            <div className="absolute -bottom-6 left-0 h-28 w-28 rounded-full bg-amber-100/80 blur-2xl" />
+
+            <h3 className="text-2xl font-semibold text-slate-900">Prêt à commencer ?</h3>
+            <p className="mt-2 text-slate-600">
+              Accédez aux campagnes ouvertes et démarrez votre candidature aujourd’hui.
+            </p>
+
+            <div className="mt-6 space-y-3">
+              <Link href="/Offres" className="brand-btn w-full justify-center">
+                Voir les offres
+              </Link>
+              <Link href="/Register" className="brand-btn-secondary w-full justify-center">
+                Créer un compte candidat
+              </Link>
+            </div>
+
+            <p className="mt-5 text-xs text-slate-500">
+              Conseil: préparez votre CV et votre diplôme en PDF pour aller plus vite.
+            </p>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
-
-
-// "use client";
-// import { useState } from "react";
-// import { Search, FileText, CheckCircle } from "lucide-react";
-
-// export default function HowItWorks() {
-//   const [query, setQuery] = useState("");
-//   const [results, setResults] = useState([]);
-
-//   const handleSearch = async (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     if (!query.trim()) return;
-
-//     try {
-//       const res = await fetch(`http://localhost:8000/campagnes/search/?q=${query}`);
-//       const data = await res.json();
-//       setResults(data);
-//     } catch (error) {
-//       console.error("Erreur lors de la recherche :", error);
-//     }
-//   };
-
-//   return (
-//     <section className="relative py-20 bg-gray-50 overflow-hidden">
-//       {/* ✅ Image de fond */}
-//       <div
-//         className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-10 pointer-events-none"
-//         style={{ backgroundImage: "url('/images/cfi_image.jpg')" }}
-//       ></div>
-
-//       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-//         {/* --- CÔTÉ GAUCHE --- */}
-//         <div>
-//           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-//             Comment rejoindre le CFI-CIRAS ? <br />
-//             <span className="text-green-600">Trouvez un emploi rapidement</span>
-//           </h2>
-
-//           <ul className="space-y-6">
-//             {[
-//               {
-//                 icon: <Search className="text-orange-600" size={28} />,
-//                 title: "Rechercher un emploi",
-//                 desc: "Trouvez l’offre adaptée à vos compétences.",
-//               },
-//               {
-//                 icon: <FileText className="text-orange-600" size={28} />,
-//                 title: "Postuler à une offre",
-//                 desc: "Postulez facilement avec votre CV et votre diplôme.",
-//               },
-//               {
-//                 icon: <CheckCircle className="text-orange-600" size={28} />,
-//                 title: "Être recruté",
-//                 desc: "Démarrez votre carrière avec le CFI-CIRAS.",
-//               },
-//             ].map((step, i) => (
-//               <li key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-//                 <div className="bg-green-100 p-4 rounded-full flex-shrink-0">{step.icon}</div>
-//                 <div>
-//                   <h3 className="text-xl font-semibold">{step.title}</h3>
-//                   <p className="text-gray-600">{step.desc}</p>
-//                 </div>
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-
-//         {/* --- CÔTÉ DROIT --- */}
-//         <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md mx-auto md:mx-0">
-//           <h3 className="text-2xl text-center font-bold mb-6">Trouvez votre carrière</h3>
-//           <form onSubmit={handleSearch} className="space-y-4">
-//             <input
-//               type="text"
-//               value={query}
-//               onChange={(e) => setQuery(e.target.value)}
-//               placeholder="Intitulé du poste ou mot-clé"
-//               className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
-//             />
-//             <button
-//               type="submit"
-//               className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition"
-//             >
-//               Rechercher un emploi
-//             </button>
-//           </form>
-
-//           {/* ✅ Résultats affichés */}
-//           {results.length > 0 && (
-//             <div className="mt-6 space-y-4">
-//               <h4 className="font-semibold text-gray-800 text-lg">Résultats :</h4>
-//               <ul className="space-y-3">
-//                 {results.map((campagne: any) => (
-//                   <li key={campagne.cod_anne} className="border rounded-lg p-3">
-//                     <h5 className="font-bold text-green-700">{campagne.cod_anne}</h5>
-//                     <p className="text-gray-600">{campagne.description}</p>
-//                     <p className="text-sm text-gray-500">
-//                       Du {campagne.dat_debut} au {campagne.dat_fin} ({campagne.etat})
-//                     </p>
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }

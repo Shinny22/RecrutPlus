@@ -29,24 +29,25 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 w-full bg-gray-100 border-t border-gray-300 p-4 text-center shadow-md z-50">
-      <p className="text-sm mb-2">
-        Nous utilisons des cookies pour améliorer votre expérience. Vous pouvez
-        accepter ou refuser leur utilisation.
-      </p>
-      <div className="flex justify-center gap-3">
-        <button
-          onClick={() => handleConsent("accept")}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Tout accepter
-        </button>
-        <button
-          onClick={() => handleConsent("reject")}
-          className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-        >
-          Tout refuser
-        </button>
+    <div className="fixed inset-x-0 bottom-4 z-[60] px-3 sm:px-6">
+      <div className="mx-auto flex max-w-4xl flex-col gap-3 rounded-2xl border border-emerald-200 bg-white/95 p-4 shadow-xl backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-slate-700">
+          Nous utilisons des cookies pour améliorer votre expérience.
+        </p>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleConsent("accept")}
+            className="brand-btn px-4 py-2 text-sm"
+          >
+            Tout accepter
+          </button>
+          <button
+            onClick={() => handleConsent("reject")}
+            className="brand-btn-secondary px-4 py-2 text-sm"
+          >
+            Tout refuser
+          </button>
+        </div>
       </div>
     </div>
   );

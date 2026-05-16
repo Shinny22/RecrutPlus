@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import PostulerForm from "../components/ApplyForm";
 import NavBar from "../components/NavBar";
 import HeroSection from "../components/HeroSection";
@@ -40,10 +41,13 @@ export default function OffresPage() {
   if (loading)
     return (
       <div className="flex flex-col items-center justify-center py-20 ">
-        <img
+        <Image
           src="/images/loading.gif" // mettre une image GIF amusante ou SVG animé
           alt="Chargement..."
-          className="w-24 h-24 mb-4"
+          width={96}
+          height={96}
+          className="mb-4 h-24 w-24"
+          unoptimized
         />
         <p className="text-lg text-gray-500 text-center">Chargement des offres... Veillez patienter</p>
       </div>
@@ -70,10 +74,12 @@ export default function OffresPage() {
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center ">
          {offres.length === 0 ? (
   <div className="flex flex-col items-center justify-center py-20 ">
-      <img
+      <Image
         src="/images/no-data.png"
         alt="Aucune campagne"
-        className="w-64 h-64 mb-4  "
+        width={256}
+        height={256}
+        className="mb-4 h-64 w-64"
       />
     <p className="text-gray-600 text-xl text-center">
       Aucune offre n’est disponible pour l’instant.

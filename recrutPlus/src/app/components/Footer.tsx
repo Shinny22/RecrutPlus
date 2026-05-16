@@ -1,136 +1,106 @@
-
 "use client";
 
-import { Mail, Phone, MapPin, Globe, Facebook, Linkedin } from "lucide-react";
-import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
+import { Facebook, Globe, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      console.log("Email souscrit:", email);
-      setIsSubscribed(true);
-      setEmail("");
-      setTimeout(() => setIsSubscribed(false), 3000);
-    }
-  };
-
   return (
     <footer
-      className="relative text-gray-300 py-12"
+      className="relative overflow-hidden text-emerald-50"
       style={{
-        backgroundImage: "url('/images/cfi_image.jpg')",
-        backgroundSize: "cover",
+        backgroundImage:
+          "linear-gradient(140deg, rgba(2,44,34,0.95), rgba(5,84,63,0.9)), url('/images/cfi_image.jpg')",
         backgroundPosition: "center",
+        backgroundSize: "cover",
       }}
     >
-      {/* Overlay sombre */}
-      <div className="absolute inset-0 bg-black/80" />
-      <div className="absolute inset-0 bg-green-700/30 pb-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(251,191,36,0.2),transparent_35%)]" />
 
-      {/* Contenu du footer */}
-      <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {/* Colonne 1 */}
-        <div>
-          <Link href="/" className="block items-center gap-2">
-            <Image
-              src="/images/logo cfi.png"
-              alt="Logo CFI"
-              width={200}
-              height={150}
-              className="rounded-md"
-              priority
-            />
-            <span className="text-xl font-bold text-green-500">CFI-Recrute</span>
-          </Link>
-
-          <p className="leading-relaxed text-sm mt-2">
-            Le Centre de Formation en Informatique du CIRAS est un établissement
-            d'enseignement supérieur public à Brazzaville, dédié à la formation
-            en technologies de l'information, en gestion et en innovation
-            numérique.
-          </p>
-        </div>
-
-        {/* Colonne 2 */}
-        <div>
-          <h3 className="text-xl font-semibold text-white mb-4">Liens utiles</h3>
-          <ul className="space-y-2">
-            <li><Link href="/" className="hover:text-white transition">Accueil</Link></li>
-            <li><Link href="/offres" className="hover:text-white transition">Offres d'emploi</Link></li>
-            <li><Link href="/formations" className="hover:text-white transition">Formations</Link></li>
-            <li><Link href="/contact" className="hover:text-white transition">Contact</Link></li>
-          </ul>
-        </div>
-
-        {/* Colonne 3 */}
-        <div>
-          <h3 className="text-xl font-semibold text-white mb-4">Contact</h3>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-start gap-2">
-              <MapPin size={16} className="mt-1 flex-shrink-0" /> 
-              <span>Immeuble CFI-CIRAS, rue Lamothe, B.P. 1542, Brazzaville</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <Phone size={16} /> +242 06 403 85 36
-            </li>
-            <li className="flex items-center gap-2">
-              <Mail size={16} /> contact@cfi-ciras.cg
-            </li>
-          </ul>
-
-          {/* Réseaux sociaux */}
-          <div className="flex gap-4 mt-5">
-            <Link
-              href="https://www.linkedin.com/company/cfi-ciras"
-              target="_blank"
-              className="hover:text-white transition"
-            >
-              <Linkedin size={20} />
+      <div className="section-shell relative z-10 py-14">
+        <div className="grid gap-10 lg:grid-cols-[1fr_0.8fr_1fr]">
+          <div>
+            <Link href="/" className="inline-flex items-center gap-3">
+              <Image
+                src="/images/logo cfi.png"
+                alt="Logo CFI"
+                width={150}
+                height={44}
+                className="rounded-lg bg-white/85 p-1"
+              />
             </Link>
-            <Link
-              href="https://www.facebook.com/CFI-CIRAS"
-              target="_blank"
-              className="hover:text-white transition"
-            >
-              <Facebook size={20} />
-            </Link>
-            <Link
-              href="https://cfi-ciras.cg/"
-              target="_blank"
-              className="hover:text-white transition"
-            >
-              <Globe size={20} />
-            </Link>
-            <Link
-              href="https://www.ciras.cg"
-              target="_blank"
-              className="hover:text-white transition"
-            >
-              <Globe size={20} />
-            </Link>
+            <p className="mt-4 max-w-md text-sm text-emerald-50/90">
+              Le Centre de Formation en Informatique du CIRAS est un établissement
+              d’enseignement supérieur public à Brazzaville, dédié à la formation en
+              technologies de l’information, en gestion et en innovation numérique.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white">Navigation</h3>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li>
+                <Link href="/" className="text-emerald-50/90 hover:text-white">
+                  Accueil
+                </Link>
+              </li>
+              <li>
+                <Link href="/Offres" className="text-emerald-50/90 hover:text-white">
+                  Offres d’emploi
+                </Link>
+              </li>
+              <li>
+                <Link href="/Register" className="text-emerald-50/90 hover:text-white">
+                  Inscription
+                </Link>
+              </li>
+              <li>
+                <Link href="/Login" className="text-emerald-50/90 hover:text-white">
+                  Connexion
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white">Contact</h3>
+            <ul className="mt-4 space-y-3 text-sm text-emerald-50/90">
+              <li className="flex items-start gap-2">
+                <MapPin size={16} className="mt-0.5 shrink-0" />
+                <span>Immeuble CFI-CIRAS, rue Lamothe, B.P. 1542, Brazzaville</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone size={16} />
+                +242 06 403 85 36
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail size={16} />
+                contact@cfi-ciras.cg
+              </li>
+            </ul>
+
+            <div className="mt-5 flex gap-3">
+              <Link href="https://www.linkedin.com/company/cfi-ciras" target="_blank" className="rounded-lg border border-white/30 p-2 hover:bg-white/10">
+                <Linkedin size={18} />
+              </Link>
+              <Link href="https://www.facebook.com/CFI-CIRAS" target="_blank" className="rounded-lg border border-white/30 p-2 hover:bg-white/10">
+                <Facebook size={18} />
+              </Link>
+              <Link href="https://cfi-ciras.cg/" target="_blank" className="rounded-lg border border-white/30 p-2 hover:bg-white/10">
+                <Globe size={18} />
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Formulaire newsletter */}
-      <div className="relative z-10 mt-8">
-        <NewsletterForm />
-      </div>
+        <div className="mt-10">
+          <NewsletterForm />
+        </div>
 
-      {/* Bas du footer */}
-      <div className="relative z-10 text-center text-gray-400 mt-12 border-t border-gray-700 pt-6">
-        © {new Date().getFullYear()} CFI-CIRAS — Tous droits réservés
-        <br />
-        <span className="text-sm text-gray-400">
-          Conçu avec ❤️ par <strong>ShineTech</strong>
-        </span>
+        <div className="mt-10 border-t border-white/20 pt-6 text-center text-xs text-emerald-50/80 sm:text-sm">
+          © {new Date().getFullYear()} CFI-CIRAS. Tous droits réservés.
+        </div>
       </div>
     </footer>
   );

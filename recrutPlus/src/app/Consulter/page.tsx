@@ -15,12 +15,11 @@ export default function OffresPage() {
 
   return (
     <>
-      {/* <NavBar /> */}
+    
        
         
           <CandidateDashboard/>
-          {/* <ProfilCard/>
-          <ProfileForm/> */}
+        
 
     
     </>

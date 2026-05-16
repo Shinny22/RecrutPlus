@@ -1,81 +1,54 @@
-// import { Briefcase, Users, Globe } from "lucide-react";
+import { Briefcase, Globe, Users } from "lucide-react";
 
-// export default function WhyChooseUs() {
-//   const avantages = [
-//     {
-//       icon: <Briefcase className="w-8 h-8 text-orange-600" />,
-//       title: "Offres variées",
-//       desc: "Des opportunités dans différents secteurs et pour tous les niveaux.",
-//     },
-//     {
-//       icon: <Users className="w-8 h-8 text-orange-600" />,
-//       title: "Communauté active",
-//       desc: "Un réseau grandissant de recruteurs et de candidats.",
-//     },
-//     {
-//       icon: <Globe className="w-8 h-8 text-orange-600" />,
-//       title: "Accès global",
-//       desc: "Postulez où que vous soyez, à tout moment.",
-//     },
-//   ];
+const reasons = [
+  {
+    icon: Briefcase,
+    title: "Cadre professionnel stimulant",
+    description:
+      "Travaillez dans un environnement structuré avec une montée en compétence continue.",
+  },
+  {
+    icon: Users,
+    title: "Accompagnement humain",
+    description:
+      "Profitez d’un suivi personnalisé et d’un réseau d’experts pour avancer plus vite.",
+  },
+  {
+    icon: Globe,
+    title: "Accès simple et flexible",
+    description:
+      "Consultez les offres et candidatez facilement depuis mobile ou ordinateur.",
+  },
+];
 
-//   return (
-//     <section className="py-20 bg-white">
-//       <div className="max-w-6xl mx-auto px-6 text-center">
-//         <h2 className="text-3xl font-bold mb-12">Pourquoi nous choisir ?</h2>
-//         <div className="grid md:grid-cols-3 gap-10">
-//           {avantages.map((item, i) => (
-//             <div key={i} className="p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
-//               <div className="flex justify-center mb-4">{item.icon}</div>
-//               <h3 className="font-semibold text-xl mb-2">{item.title}</h3>
-//               <p className="text-gray-600">{item.desc}</p>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
-
-import { Briefcase, Users, Globe } from "lucide-react";
-
-export default function WhyJoinUs() {
-  const avantages = [
-    {
-      icon: <Briefcase className="w-8 h-8 text-green-600" />,
-      title: "Environnement professionnel stimulant",
-      desc: "Rejoignez un cadre de travail motivant avec des équipes expérimentées et un suivi personnalisé pour votre réussite.",
-    },
-    {
-      icon: <Users className="w-8 h-8 text-green-600" />,
-      title: "Collaboration et esprit d’équipe",
-      desc: "Travaillez avec des collègues passionnés et profitez d’un réseau actif de mentors et de professionnels pour enrichir votre parcours.",
-    },
-    {
-      icon: <Globe className="w-8 h-8 text-green-600" />,
-      title: "Flexibilité et accessibilité",
-      desc: "Accédez à nos programmes et opportunités depuis n’importe où et bénéficiez d’une organisation qui s’adapte à vos besoins.",
-    },
-  ];
-
+export default function WhyChooseUs() {
   return (
-    <section className="py-20 bg-white">
-    <div className="absolute p-25 rounded-b-full  rounded-r-full bg-green-800/25"></div>
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold mb-12">Pourquoi nous rejoindre ?</h2>
-        <div className="grid md:grid-cols-3 gap-10">
-          {avantages.map((item, i) => (
-            <div key={i} className="p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
-              <div className="flex justify-center mb-4">{item.icon}</div>
-              <h3 className="font-semibold text-xl mb-2">{item.title}</h3>
-              <p className="text-gray-600">{item.desc}</p>
-            </div>
-          ))}
+    <section className="relative">
+      <div className="section-shell">
+        <div className="text-center">
+          <span className="section-kicker">Valeur</span>
+          <h2 className="section-title">Pourquoi nous rejoindre</h2>
+          <p className="section-subtitle">
+            CFI-Recrute combine simplicité d’usage et qualité de suivi pour offrir une
+            expérience candidate fluide du début à la décision finale.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {reasons.map((reason) => {
+            const Icon = reason.icon;
+            return (
+              <article key={reason.title} className="surface-card text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+                  <Icon size={24} />
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-slate-900">{reason.title}</h3>
+                <p className="mt-2 text-sm text-slate-600 sm:text-base">{reason.description}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
-      <div className="absolute p-25 rounded-t-full ml-250 rounded-l-full bg-green-800/45"></div>
     </section>
   );
 }

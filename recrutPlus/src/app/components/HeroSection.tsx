@@ -1,246 +1,158 @@
-
-
-// // /components/HeroSection.tsx
-// "use client";
-
-// import { Search } from "lucide-react";
-// import Image from "next/image";
-// import { useKeenSlider } from "keen-slider/react";
-
-// const images = [
-//   { src: "/images/femme_cadre.png", alt: "Femme cadre" },
-//   { src: "/images/Teamwork.jpg", alt: "Travail d'équipe" },   // <— attention à la casse
-//   { src: "/images/office.jpg", alt: "Bureau" },
-//   { src: "/images/success.jpg", alt: "Succès" },
-// ];
-
-// // Plugin autoplay recommandé (propre et fiable)
-// function Autoplay(slider: any) {
-//   let timeout: NodeJS.Timeout;
-//   let mouseOver = false;
-
-//   function clearNextTimeout() {
-//     clearTimeout(timeout);
-//   }
-//   function nextTimeout() {
-//     clearTimeout(timeout);
-//     if (mouseOver) return;
-//     timeout = setTimeout(() => slider.next(), 3000);
-//   }
-
-//   slider.on("created", () => {
-//     slider.container.addEventListener("mouseover", () => {
-//       mouseOver = true;
-//       clearNextTimeout();
-//     });
-//     slider.container.addEventListener("mouseout", () => {
-//       mouseOver = false;
-//       nextTimeout();
-//     });
-//     nextTimeout();
-//   });
-//   slider.on("dragStarted", clearNextTimeout);
-//   slider.on("animationEnded", nextTimeout);
-//   slider.on("updated", nextTimeout);
-// }
-
-// export default function HeroSection() {
-//   const [sliderRef] = useKeenSlider<HTMLDivElement>(
-//     {
-//       loop: true,
-//       duration: 300,
-//       renderMode: "performance",
-//       slides: { perView: 1 },
-//       drag: false,
-//     },
-//     [Autoplay] // <— plugin branché ici
-//   );
-
-//   return (
-//     <section className="bg-green-50 py-16">
-//       <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-//         {/* CONTENU GAUCHE */}
-//         <div className="space-y-6">
-//           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-//             CFI-Recrute <br />
-//             <span className="text-orange-600">Plateforme de recrutement du CFI-CIRAS</span>
-//           </h1>
-//           <p className="text-gray-600">
-//              Plateforme de recrutement du centre de formation en informatique du Centre d'information et de recherche de l'armée et de la sécurité
-//           </p>
-
-//           {/* BARRE DE RECHERCHE */}
-//           <div className="flex items-center bg-white shadow-lg rounded-xl p-2 w-full max-w-lg ring-1 ring-black/5">
-//             <input
-//               type="text"
-//               placeholder="Rechercher un titre de poste ou un mot-clé"
-//               className="flex-grow px-4 py-2 outline-none rounded-l-xl"
-//             />
-//             <button className="bg-green-800 text-white px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-orange-700">
-//               <Search size={18} />
-//               Rechercher
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* CARROUSEL D'IMAGES DROIT */}
-//         <div className="flex justify-center">
-//           <div
-//             ref={sliderRef}
-//             className="keen-slider w-full max-w-md md:max-w-lg rounded-2xl overflow-hidden shadow-lg ring-1 ring-black/5"
-//           >
-//             {images.map((img, i) => (
-//               <div key={i} className="keen-slider__slide relative">
-//                 {/* Aspect ratio propre pour éviter le “saut” de layout */}
-//                 <div className="relative w-full aspect-[4/3]">
-//                   <Image
-//                     src={img.src}
-//                     alt={img.alt}
-//                     fill
-//                     className="object-cover"
-//                     priority={i === 0}
-//                   />
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
-
-
-// /components/HeroSection.tsx
 "use client";
 
-import { Search } from "lucide-react";
+import { useState } from "react";
 import Image from "next/image";
-import { useKeenSlider } from "keen-slider/react";
+import Link from "next/link";
+import { Search } from "lucide-react";
 import { motion } from "framer-motion";
+import { KeenSliderInstance, useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
 const slides = [
   {
     src: "/images/cfi_image.jpg",
-    alt: "Femme cadre",
-    title: "Construisez votre avenir avec le CFI-CIRAS",
-    subtitle: "Rejoins notre équipe dynamique et professionelle. Des opportunités uniques pour votre carrière",
+    alt: "Campus CFI-CIRAS",
+    title: "Trouvez l’opportunité qui accélère votre carrière",
+    subtitle:
+      "Une plateforme claire pour consulter les offres, déposer votre dossier et suivre votre progression.",
   },
   {
     src: "/images/Teamwork.jpg",
-    alt: "Travail d'équipe",
-    title: "Rejoignez une équipe dynamique",
-    subtitle: "Collaborez avec des experts du numérique,de la sécurité, des sciences et de l'administation",
+    alt: "Travail d’équipe",
+    title: "Rejoignez une équipe ambitieuse et engagée",
+    subtitle:
+      "Intégrez des projets à fort impact dans le numérique, la sécurité et l’administration.",
   },
   {
     src: "/images/office.jpg",
-    alt: "Bureau",
-    title: "Un environnement moderne",
-    subtitle: "Un cadre professionnel pour exceller",
-  },
-  {
-    src: "/images/success.jpg",
-    alt: "Succès",
-    title: "Réussissez vos ambitions",
-    subtitle: "Votre avenir commence ici avec CFI-Recrute",
+    alt: "Espace de travail moderne",
+    title: "Un environnement de travail structuré et moderne",
+    subtitle:
+      "Des processus fluides, un accompagnement humain et des parcours lisibles.",
   },
 ];
 
-// Plugin autoplay
-function Autoplay(slider: any) {
+function autoplayPlugin(slider: KeenSliderInstance) {
   let timeout: NodeJS.Timeout;
   let mouseOver = false;
 
-  function clearNextTimeout() {
-    clearTimeout(timeout);
-  }
-  function nextTimeout() {
+  const clearNextTimeout = () => clearTimeout(timeout);
+  const nextTimeout = () => {
     clearTimeout(timeout);
     if (mouseOver) return;
     timeout = setTimeout(() => slider.next(), 5000);
-  }
+  };
 
   slider.on("created", () => {
     slider.container.addEventListener("mouseover", () => {
       mouseOver = true;
       clearNextTimeout();
     });
+
     slider.container.addEventListener("mouseout", () => {
       mouseOver = false;
       nextTimeout();
     });
+
     nextTimeout();
   });
+
   slider.on("dragStarted", clearNextTimeout);
   slider.on("animationEnded", nextTimeout);
   slider.on("updated", nextTimeout);
 }
 
 export default function HeroSection() {
+  const [search, setSearch] = useState("");
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const [sliderRef] = useKeenSlider<HTMLDivElement>(
     {
       loop: true,
-      duration: 1000,
       renderMode: "performance",
+      defaultAnimation: { duration: 850 },
+      slideChanged(slider) {
+        setCurrentSlide(slider.track.details.rel);
+      },
       slides: { perView: 1 },
     },
-    [Autoplay]
+    [autoplayPlugin]
   );
 
+  const offersHref = search.trim() ? `/Offres?q=${encodeURIComponent(search.trim())}` : "/Offres";
+
   return (
-    <section className="relative bg-gray-10 pb-10 ">
-      {/* Slider */}
-      <div ref={sliderRef} className="keen-slider relative h-[95vh]  overflow-hidden " >
-        {slides.map((slide, i) => (
-          <div key={i} className="keen-slider__slide relative ">
-            {/* Image background */}
+    <section className="relative overflow-hidden pt-24 md:pt-28">
+      <div ref={sliderRef} className="keen-slider relative min-h-[78vh] overflow-hidden">
+        {slides.map((slide, index) => (
+          <div key={slide.title} className="keen-slider__slide relative min-h-[78vh]">
             <Image
               src={slide.src}
               alt={slide.alt}
               fill
-              priority={i === 0}
+              priority={index === 0}
               className="object-cover"
             />
-
-            {/* Overlay sombre */}
-            <div className="absolute inset-0 bg-black/40 pb-10" />
-            <div className="absolute inset-0 bg-green-700/30 pb-10" />
-           
-
-            {/* Texte animé */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="absolute inset-0 flex flex-col justify-center items-center text-center px-6"
-            >
-              <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
-                {slide.title}
-              </h1>
-              <p className="mt-4 text-lg md:text-xl text-gray-100 max-w-2xl">
-                {slide.subtitle}
-              </p>
-
-              {/* Barre de recherche */}
-              {i === 0 && (
-                <div className="lg:max-w-md md:max-w-lg mt-8 flex items-center bg-white  shadow-lg rounded-xl p-2 w-full max-w-xl ring-1 ring-black/10">
-                  <input
-                    type="text"
-                    placeholder="Rechercher un titre de poste ou un mot-clé"
-                    className="flex-grow px-4 py-2 outline-none rounded-l-xl"
-                  />
-                  <button className="lg:max-w-lg  md:max-w-md bg-green-700 text-white px-6 py-2 rounded-xl flex items-center gap-2 hover:bg-green-600 transition">
-                    <Search size={18} />
-                    Rechercher
-                  </button>
-                </div>
-              )}
-            </motion.div>
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/72 via-slate-900/52 to-slate-900/28" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(16,185,129,0.26),transparent_38%)]" />
           </div>
-          
+        ))}
+      </div>
+
+      <div className="pointer-events-none absolute inset-0 flex items-center">
+        <div className="section-shell pointer-events-auto w-full">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            className="max-w-3xl"
+          >
+            <span className="section-kicker border-emerald-300/60 bg-emerald-100/80 text-emerald-900">
+              CFI-Recrute
+            </span>
+
+            <h1 className="text-balance text-4xl font-semibold text-white drop-shadow-md sm:text-5xl lg:text-6xl">
+              {slides[currentSlide]?.title}
+            </h1>
+
+            <p className="mt-5 max-w-2xl text-pretty text-base text-emerald-50/95 sm:text-lg">
+              {slides[currentSlide]?.subtitle}
+            </p>
+
+            <div className="mt-8 flex max-w-2xl flex-col gap-3 rounded-2xl border border-white/30 bg-white/92 p-3 shadow-2xl sm:flex-row">
+              <div className="flex flex-1 items-center gap-2 px-2">
+                <Search className="h-5 w-5 text-emerald-700" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="Intitulé de poste, domaine, mot-clé..."
+                  className="w-full bg-transparent py-2 text-sm text-slate-700 outline-none placeholder:text-slate-400 sm:text-base"
+                />
+              </div>
+
+              <div className="flex gap-2">
+                <Link href={offersHref} className="brand-btn w-full justify-center sm:w-auto">
+                  Rechercher
+                </Link>
+                <Link href="/Register" className="brand-btn-secondary w-full justify-center sm:w-auto">
+                  S’inscrire
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute bottom-7 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+        {slides.map((slide, index) => (
+          <span
+            key={slide.title}
+            className={`h-1.5 rounded-full transition-all ${
+              index === currentSlide ? "w-8 bg-emerald-300" : "w-2 bg-white/55"
+            }`}
+          />
         ))}
       </div>
     </section>
