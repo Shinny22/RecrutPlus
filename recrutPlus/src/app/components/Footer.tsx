@@ -8,15 +8,16 @@ import NewsletterForm from "./NewsletterForm";
 export default function Footer() {
   return (
     <footer
-      className="relative overflow-hidden text-emerald-50"
+      className="relative overflow-hidden border-t border-emerald-950/25 text-emerald-50"
       style={{
         backgroundImage:
-          "linear-gradient(140deg, rgba(2,44,34,0.95), rgba(5,84,63,0.9)), url('/images/cfi_image.jpg')",
+          "linear-gradient(138deg, rgba(2,44,34,0.96), rgba(5,84,63,0.9)), url('/images/cfi_image.jpg')",
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(251,191,36,0.2),transparent_35%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(251,191,36,0.22),transparent_35%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_85%,rgba(16,185,129,0.22),transparent_42%)]" />
 
       <div className="section-shell relative z-10 py-14">
         <div className="grid gap-10 lg:grid-cols-[1fr_0.8fr_1fr]">

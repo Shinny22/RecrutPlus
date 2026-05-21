@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Manrope, Sora } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -34,6 +35,16 @@ export default function RootLayout({
         className={`${manrope.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased`}
       >
         {children}
+        <Toaster
+          position="top-right"
+          richColors
+          closeButton
+          toastOptions={{
+            classNames: {
+              toast: "rounded-xl border border-emerald-100 shadow-lg",
+            },
+          }}
+        />
       </body>
     </html>
   );

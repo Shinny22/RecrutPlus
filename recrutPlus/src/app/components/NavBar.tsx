@@ -41,6 +41,7 @@ export default function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
 
@@ -75,6 +76,13 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 18);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
@@ -93,9 +101,19 @@ export default function Navbar() {
   const links = user ? userLinks : publicLinks;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
-      <div className="mx-auto max-w-7xl rounded-2xl border border-white/70 bg-white/80 shadow-[0_16px_35px_-24px_rgba(15,23,42,0.6)] backdrop-blur-md">
-        <nav className="flex h-18 items-center justify-between px-4 sm:px-6">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled ? "px-2 pt-2 sm:px-4" : "px-3 pt-3 sm:px-6"
+      }`}
+    >
+      <div
+        className={`mx-auto max-w-7xl border border-white/75 backdrop-blur-md transition-all duration-300 ${
+          scrolled
+            ? "rounded-xl bg-white/92 shadow-[0_18px_35px_-24px_rgba(15,23,42,0.62)]"
+            : "rounded-2xl bg-white/82 shadow-[0_16px_35px_-24px_rgba(15,23,42,0.6)]"
+        }`}
+      >
+        <nav className="flex h-16 items-center justify-between px-4 sm:px-6">
           <Link href="/" className="group flex items-center gap-3">
             <Image
               src="/images/logo cfi.png"
@@ -105,6 +123,9 @@ export default function Navbar() {
               className="rounded-lg object-contain transition group-hover:scale-[1.02]"
               priority
             />
+            <span className="hidden text-xs font-semibold uppercase tracking-[0.24em] text-emerald-900/80 lg:block">
+              CFI-Recrute
+            </span>
           </Link>
 
           <div className="hidden items-center gap-7 md:flex">
@@ -120,7 +141,7 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => setShowRegister(true)}
-                  className="hidden rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-900 transition hover:bg-emerald-100 sm:inline-flex"
+                  className="hidden rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-900 transition hover:-translate-y-0.5 hover:bg-emerald-100 sm:inline-flex"
                 >
                   Créer un compte
                 </button>
@@ -135,7 +156,7 @@ export default function Navbar() {
               <div className="relative" ref={profileRef}>
                 <button
                   onClick={() => setProfileOpen((open) => !open)}
-                  className="flex items-center gap-2 rounded-xl border border-emerald-100 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-emerald-50"
+                  className="flex items-center gap-2 rounded-xl border border-emerald-100 bg-white/95 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-emerald-50"
                   aria-expanded={profileOpen}
                   aria-haspopup="menu"
                 >

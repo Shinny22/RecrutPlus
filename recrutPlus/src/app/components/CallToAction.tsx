@@ -5,15 +5,16 @@ export default function CallToAction() {
     <section className="relative overflow-hidden">
       <div className="section-shell">
         <div
-          className="relative overflow-hidden rounded-3xl border border-white/60 px-6 py-14 text-center text-white shadow-2xl sm:px-10"
+          className="relative overflow-hidden rounded-3xl border border-white/55 px-6 py-14 text-center text-white shadow-2xl sm:px-10"
           style={{
             backgroundImage:
-              "linear-gradient(120deg, rgba(6,78,59,0.88), rgba(5,150,105,0.78)), url('/images/cfi_image.jpg')",
+              "linear-gradient(118deg, rgba(5,46,39,0.9), rgba(5,150,105,0.8)), url('/images/cfi_image.jpg')",
             backgroundPosition: "center",
             backgroundSize: "cover",
           }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(251,191,36,0.2),transparent_35%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(251,191,36,0.22),transparent_35%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_84%_75%,rgba(16,185,129,0.24),transparent_42%)]" />
           <div className="relative z-10 mx-auto max-w-3xl">
             <span className="section-kicker border-emerald-200/50 bg-white/15 text-white">
               Passez à l’action

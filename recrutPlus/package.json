@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "engines": {
-    "node": ">=20 <24"
+    "node": ">=20 <=24"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

@@ -266,12 +266,8 @@ const PostulerForm = ({ campagnes }: { campagnes: Campagne[] }) => {
                   <Input id="photo" type="file" onChange={handleFileChange("photo")} />
                 </div>
 
-                <Button
-                  type="button"
-                  onClick={() => setStep(2)}
-                  className="w-full"
-                >
-                  Suivant
+                <Button type="button" onClick={() => setStep(2)} className="w-full">
+                  Suivant →
                 </Button>
               </div>
             </motion.div>
@@ -336,12 +332,12 @@ const PostulerForm = ({ campagnes }: { campagnes: Campagne[] }) => {
                 <Input id="cv" type="file" onChange={handleFileChange("cv")} />
               </div>
 
-              <div className="mt-4 flex justify-between">
+              <div className="mt-4 flex justify-between gap-3">
                 <Button type="button" variant="outline" onClick={() => setStep(1)}>
-                  Precedent
+                  ← Précédent
                 </Button>
-                <Button type="submit" disabled={loading}>
-                  {loading ? "Envoi..." : "Postuler"}
+                <Button type="submit" disabled={loading} className="min-w-[140px]">
+                  {loading ? "Envoi..." : "Envoyer la candidature"}
                 </Button>
               </div>
             </motion.div>

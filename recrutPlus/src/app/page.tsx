@@ -19,21 +19,48 @@ import CookieBanner from "./components/CookieBanner";
 
 export default function Home() {
   return (
-    <main>
-      <Navbar/>
+    <main className="relative">
+      <Navbar />
       <CookieBanner />
       <HeroSection />
-      <HowItWorks />
-      <JobCategories />
-      <FeaturedJobs />
-      <AboutSection />
-      <WhyChooseUs />
-      <Testimonials />
-      <CallToAction />
-      <ContactForm/>
-      <Companies />
-      <Footer />
 
+      <div className="section-band section-divider-top">
+        <HowItWorks />
+      </div>
+
+      <div className="section-band-soft section-divider-top">
+        <JobCategories />
+      </div>
+
+      <div className="section-band section-divider-top">
+        <FeaturedJobs />
+      </div>
+
+      <div className="section-band-soft section-divider-top">
+        <AboutSection />
+      </div>
+
+      <div className="section-band section-divider-top">
+        <WhyChooseUs />
+      </div>
+
+      <div className="section-band-soft section-divider-top">
+        <Testimonials />
+      </div>
+
+      <div className="section-band section-divider-top">
+        <CallToAction />
+      </div>
+
+      <div className="section-band-soft section-divider-top">
+        <ContactForm />
+      </div>
+
+      <div className="section-band section-divider-top section-divider-bottom">
+        <Companies />
+      </div>
+
+      <Footer />
     </main>
   );
 }

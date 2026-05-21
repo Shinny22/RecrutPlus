@@ -36,6 +36,7 @@ import { Input } from "@/components/ui/input";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import OffresList from "./OffreList";
 import LogoutButton from "./Logoutbtn";
+import Navbar from "./NavBar";
 
 
 /* ----------------------------
@@ -161,9 +162,7 @@ export default function CandidateDashboardPremium() {
         initial={false}
         animate={active ? { scale: 1.02 } : { scale: 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-          active ? "bg-[linear-gradient(90deg,#ECFDF5_0%,#E6F9F0_100%)] text-green-800 shadow" : "text-slate-700 hover:bg-slate-50"
-        }`}
+        className={`sidebar-nav-item ${active ? "sidebar-nav-item-active" : ""}`}
       >
         <div className="w-6 h-6 flex items-center justify-center text-slate-600">{icon}</div>
         <span className="flex-1 text-left">{label}</span>
@@ -175,7 +174,7 @@ export default function CandidateDashboardPremium() {
   /* -------------- Empty / loading UI -------------- */
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-white p-6">
+      <div className="dashboard-shell flex items-center justify-center p-6">
         <div className="w-full max-w-4xl space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -204,47 +203,55 @@ export default function CandidateDashboardPremium() {
 
   /* -------------- Main render -------------- */
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
-      <div className="max-w-[1400px] mx-auto p-6 lg:p-10">
-        {/* Top header */}
-        <header className="flex items-center justify-between gap-4 mb-6">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              {/* company logo */}
-              <div className="w-30 h-12 rounded-lg bg-gradient-to-tr from-green-600 to-emerald-400 flex items-center justify-center shadow-md">
-                {/* short logo text/icon */}
-                <span className="text-white font-bold">CFI-Recrute</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">Mon espace candidat</h3>
-                {/* <p className="text-xs text-slate-500">Vue personnalisée — identité : <strong className="text-slate-700">CFI</strong></p> */}
-              </div>
-            </div>
+    <>
+      <Navbar />
+      <div className="dashboard-shell">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+        <header className="surface-card mb-6 flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <span className="section-kicker mb-2">Espace candidat</span>
+            <h1 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Mon tableau de bord
+            </h1>
+            <p className="mt-1 text-sm text-slate-600">
+              Suivez vos candidatures, consultez les offres et gérez votre profil.
+            </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <div className="hidden sm:flex items-center gap-2">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <button onClick={fetchData} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white border hover:shadow">
+                  <button
+                    type="button"
+                    onClick={fetchData}
+                    className="brand-btn-secondary gap-2 px-3 py-2 text-sm"
+                  >
                     <RefreshCw size={16} /> Rafraîchir
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>Récupère les dernières données</TooltipContent>
               </Tooltip>
 
-              <button className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-green-600 text-white shadow">
+              <button
+                type="button"
+                onClick={() => setTab("offres")}
+                className="brand-btn gap-2 px-3 py-2 text-sm"
+              >
                 <CheckCircle size={16} /> Postuler
               </button>
             </div>
 
-            <div className="flex items-center gap-3">
-              <button className="p-2 rounded-md bg-white border hover:shadow">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                className="rounded-xl border border-emerald-100 bg-white p-2.5 text-slate-600 transition hover:bg-emerald-50"
+                aria-label="Notifications"
+              >
                 <BellRing size={18} />
               </button>
 
-              {/* user avatar */}
-              <div className="flex items-center gap-2 bg-white border rounded-lg p-1">
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-100 bg-white p-1.5 shadow-sm">
                 <Avatar className="w-10 h-10">
                   {user?.photo ? (
                     <AvatarImage src={`https://recrutplus-back.onrender.com${user.photo}`} alt={`${user.nom_cand} ${user.pren_cand}`} />
@@ -256,7 +263,7 @@ export default function CandidateDashboardPremium() {
                   <div className="font-medium">{user?.nom_cand ?? "Candidat"}</div>
                   <div className="text-xs text-slate-500">{user?.email ?? "—"}</div>
                 </div>
-                <div className="hidden sm:block pl-2 border-l border-slate-100 ml-2">
+                <div className="hidden border-l border-emerald-100 pl-2 sm:block">
                   <LogoutButton />
                 </div>
               </div>
@@ -320,21 +327,24 @@ export default function CandidateDashboardPremium() {
             </Card>
 
             {/* Branding card */}
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="mt-6">
-              <Card>
-                <CardContent>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-md bg-gradient-to-tr from-emerald-400 to-green-600 flex items-center justify-center text-white font-semibold shadow">
-                      C
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold">CFI- Recrute</div>
-                      <div className="text-xs text-slate-500">Bienvenue sur votre espace candidats</div>
-                    </div>
-                  </div>
-                  <p className="mt-3 text-xs text-slate-500">Utilise cette vue pour suivre tes candidatures, télécharger tes documents et gérer ton profil.</p>
-                </CardContent>
-              </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.08 }}
+              className="surface-card-soft mt-6 p-5"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-700 text-sm font-bold text-white shadow">
+                  CFI
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-slate-900">CFI-Recrute</div>
+                  <div className="text-xs text-slate-500">Espace candidat sécurisé</div>
+                </div>
+              </div>
+              <p className="mt-3 text-xs leading-relaxed text-slate-600">
+                Suivez vos candidatures, téléchargez vos documents et mettez à jour votre profil.
+              </p>
             </motion.div>
           </aside>
 
@@ -663,7 +673,8 @@ export default function CandidateDashboardPremium() {
             )}
           </section>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

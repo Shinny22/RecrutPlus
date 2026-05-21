@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, Clock3, Search, Users2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { KeenSliderInstance, useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
@@ -30,6 +30,12 @@ const slides = [
     subtitle:
       "Des processus fluides, un accompagnement humain et des parcours lisibles.",
   },
+];
+
+const heroStats = [
+  { icon: BriefcaseBusiness, value: "120+", label: "offres publiées" },
+  { icon: Users2, value: "4 000+", label: "candidats inscrits" },
+  { icon: Clock3, value: "72h", label: "délai moyen de réponse" },
 ];
 
 function autoplayPlugin(slider: KeenSliderInstance) {
@@ -82,7 +88,7 @@ export default function HeroSection() {
   const offersHref = search.trim() ? `/Offres?q=${encodeURIComponent(search.trim())}` : "/Offres";
 
   return (
-    <section className="relative overflow-hidden pt-24 md:pt-28">
+    <section className="relative overflow-hidden pt-24 md:pt-28" aria-label="Bannière principale">
       <div ref={sliderRef} className="keen-slider relative min-h-[78vh] overflow-hidden">
         {slides.map((slide, index) => (
           <div key={slide.title} className="keen-slider__slide relative min-h-[78vh]">
@@ -93,11 +99,15 @@ export default function HeroSection() {
               priority={index === 0}
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/72 via-slate-900/52 to-slate-900/28" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(16,185,129,0.26),transparent_38%)]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/82 via-[#052e27]/74 to-slate-900/46" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(16,185,129,0.28),transparent_38%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_84%_78%,rgba(251,191,36,0.22),transparent_42%)]" />
           </div>
         ))}
       </div>
+
+      <div className="hero-orb pointer-events-none absolute -left-24 top-18 h-72 w-72 rounded-full" />
+      <div className="hero-orb pointer-events-none absolute -right-24 bottom-6 h-72 w-72 rounded-full" />
 
       <div className="pointer-events-none absolute inset-0 flex items-center">
         <div className="section-shell pointer-events-auto w-full">
@@ -108,7 +118,7 @@ export default function HeroSection() {
             transition={{ duration: 0.55, ease: "easeOut" }}
             className="max-w-3xl"
           >
-            <span className="section-kicker border-emerald-300/60 bg-emerald-100/80 text-emerald-900">
+            <span className="section-kicker border-emerald-300/60 bg-emerald-100/85 text-emerald-900">
               CFI-Recrute
             </span>
 
@@ -120,7 +130,20 @@ export default function HeroSection() {
               {slides[currentSlide]?.subtitle}
             </p>
 
-            <div className="mt-8 flex max-w-2xl flex-col gap-3 rounded-2xl border border-white/30 bg-white/92 p-3 shadow-2xl sm:flex-row">
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {heroStats.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.label} className="hero-stat-chip">
+                    <Icon className="h-3.5 w-3.5 text-emerald-200" />
+                    <span className="text-emerald-50">{item.value}</span>
+                    <span className="text-emerald-100/85">{item.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="glass-panel mt-8 flex max-w-3xl flex-col gap-3 p-3 shadow-2xl sm:flex-row">
               <div className="flex flex-1 items-center gap-2 px-2">
                 <Search className="h-5 w-5 text-emerald-700" />
                 <input
@@ -135,6 +158,7 @@ export default function HeroSection() {
               <div className="flex gap-2">
                 <Link href={offersHref} className="brand-btn w-full justify-center sm:w-auto">
                   Rechercher
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link href="/Register" className="brand-btn-secondary w-full justify-center sm:w-auto">
                   S’inscrire
