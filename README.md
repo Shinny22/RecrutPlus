@@ -1,34 +1,22 @@
 # RecrutPlus
 
-Plateforme web d'automatisation des recrutements en ligne (CFI-CIRAS).
+Plateforme web de recrutement en ligne (CFI-CIRAS) — Next.js 15.
 
 ## Développement local
 
 ```bash
-cd recrutPlus
 npm install
 npm run dev
 ```
 
+Ouvrir http://localhost:3000
+
 ## Déploiement Vercel
 
-Le dépôt Git contient le projet Next.js dans le dossier **`recrutPlus/`** (pas à la racine).
+Le projet Next.js est à la **racine du dépôt** (`package.json`, `next.config.ts`, `src/`).
 
-### Option A — Recommandée (paramètres projet)
+Dans Vercel → **Project Settings → General → Root Directory**, laissez le champ **vide** (ou `.`).
 
-Dans **Vercel → Project Settings → General → Root Directory**, définir :
+Ne pas utiliser `recrutPlus` ni `recrut-plus` comme Root Directory.
 
-```
-recrutPlus
-```
-
-Puis redéployer. Aucune commande personnalisée n'est nécessaire.
-
-### Option B — Racine du dépôt
-
-Un fichier `vercel.json` à la racine du dépôt redirige déjà les commandes vers `recrutPlus/`.
-
-### Node.js
-
-- Version supportée : **20.x à 24.x** (`.nvmrc` : 22)
-- Vercel utilise par défaut Node 24 depuis fin 2025 ; le script `prebuild` l'accepte.
+**Node.js** : 20.x à 24.x (voir `.nvmrc` : 22)
